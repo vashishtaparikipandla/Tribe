@@ -7,8 +7,13 @@ import { SectionPage } from '@/components/SectionPage'
 import { ScreenDesignPage, ScreenDesignFullscreen } from '@/components/ScreenDesignPage'
 import { ShellDesignPage, ShellDesignFullscreen } from '@/components/ShellDesignPage'
 import { ExportPage } from '@/components/ExportPage'
+import { PrototypePage } from '@/components/PrototypePage'
 
 export const router = createBrowserRouter([
+  {
+    path: '/prototype',
+    element: <PrototypePage />,
+  },
   {
     path: '/',
     element: <ProductPage />,

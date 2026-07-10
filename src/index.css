@@ -207,3 +207,39 @@
     }
   }
 }
+
+/* Bugatti Theme Prototype */
+.bugatti-theme {
+  --font-display: "Saira Condensed", sans-serif;
+  --font-body: "Cormorant Garamond", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* We will use explicit tailwind classes mapped to arbitrary values to avoid polluting shadcn */
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.bugatti-theme h1,
+.bugatti-theme h2,
+.bugatti-theme h3,
+.bugatti-theme h4,
+.bugatti-theme h5,
+.bugatti-theme h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.bugatti-theme p,
+.bugatti-theme span {
+  font-family: var(--font-body);
+}
+
+.bugatti-theme button,
+.bugatti-theme .mono,
+.bugatti-theme .nav-link,
+.bugatti-theme .caption {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
