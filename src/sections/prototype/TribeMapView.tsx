@@ -19,11 +19,11 @@ export default function TribeMapView({ providers }: { providers: any[] }) {
   const selectedProvider = providers.find(p => p.id === selectedProviderId);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#e2e8f0' }}>
+    <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, overflow: 'hidden', background: '#e2e8f0' }}>
       {/* Static Map Background Simulating Geography */}
       <img 
-        src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, filter: 'grayscale(0.3) contrast(1.1)' }} 
+        src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+        style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, filter: 'contrast(1.1) brightness(1.1)' }} 
       />
       
       {/* Map Controls */}
