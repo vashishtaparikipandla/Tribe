@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle } from 'lucide-react';
+import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight } from 'lucide-react';
 
 const categories = [
-  { label: 'Doctors', subtitle: '124 trusted nearby', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop' },
-  { label: 'Plumbers', subtitle: '85 trusted nearby', image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=400&auto=format&fit=crop' },
-  { label: 'Electricians', subtitle: '42 trusted nearby', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=400&auto=format&fit=crop', sponsored: true },
-  { label: 'Tutors', subtitle: '190 trusted nearby', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop', sponsored: true },
-  { label: 'Mechanics', subtitle: '63 trusted nearby', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=400&auto=format&fit=crop' },
+  { label: 'Doctors', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop' },
+  { label: 'Plumbers', image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=200&auto=format&fit=crop' },
+  { label: 'Electricians', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=200&auto=format&fit=crop', sponsored: true },
+  { label: 'Tutors', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=200&auto=format&fit=crop', sponsored: true },
+  { label: 'Mechanics', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=200&auto=format&fit=crop' },
+  { label: 'Dentists', image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=200&auto=format&fit=crop' },
 ];
 
 const initialFeed = [
@@ -124,34 +125,45 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
       </div>
 
       <div style={{ padding: '24px 0 12px' }} className="animate-slide-up-fade delay-200">
-        <div style={{ display: 'flex', gap: '16px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '16px' }}>
+        <div style={{ display: 'flex', gap: '12px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '16px' }}>
           {categories.map((cat) => (
-            <button key={cat.label} onClick={() => setActiveCategory(cat.label === activeCategory ? null : cat.label)} style={{
+            <button key={cat.label} onClick={() => onNavigate('my-tribe')} style={{
               background: '#ffffff',
-              border: activeCategory === cat.label ? '2px solid #7e22ce' : '1px solid #e2e8f0',
-              borderRadius: '24px',
-              minWidth: '160px',
+              border: '1px solid #e2e8f0',
+              borderRadius: '20px',
+              minWidth: '110px',
+              maxWidth: '110px',
               padding: 0, overflow: 'hidden',
               cursor: 'pointer',
               display: 'flex', flexDirection: 'column',
-              transition: 'all 0.2s ease',
-              boxShadow: activeCategory === cat.label ? '0 8px 20px rgba(126, 34, 206, 0.15)' : '0 4px 12px rgba(0,0,0,0.03)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
             }}>
-              <div style={{ width: '100%', height: '100px', background: '#f1f5f9', position: 'relative' }}>
+              <div style={{ width: '100%', height: '80px', background: '#f1f5f9', position: 'relative' }}>
                 <img src={cat.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                {cat.sponsored && (
-                  <div style={{ position: 'absolute', top: '8px', right: '8px', background: 'rgba(0,0,0,0.6)', color: '#ffffff', padding: '4px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', backdropFilter: 'blur(4px)' }}>
-                    Sponsored
-                  </div>
-                )}
               </div>
-              <div style={{ padding: '16px', textAlign: 'left' }}>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>{cat.label}</div>
-                <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>{cat.subtitle}</div>
+              <div style={{ padding: '12px', textAlign: 'center', width: '100%' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>{cat.label}</div>
               </div>
             </button>
-            ))}
-          </div>
+          ))}
+          
+          {/* See All Categories Card */}
+          <button onClick={() => onNavigate('category-directory')} style={{
+            background: '#f8fafc',
+            border: '1px dashed #cbd5e1',
+            borderRadius: '20px',
+            minWidth: '110px',
+            padding: '16px',
+            cursor: 'pointer',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px',
+            boxShadow: 'none',
+          }}>
+            <div style={{ background: '#e2e8f0', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ArrowRight size={20} color="#475569" />
+            </div>
+            <div style={{ fontSize: '13px', fontWeight: 700, color: '#475569', textAlign: 'center' }}>See all categories</div>
+          </button>
+        </div>
       </div>
 
       <div style={{ padding: '0 20px 24px' }}>
@@ -324,7 +336,8 @@ function FeedCard({ item, saved, onSave, onTap }: { item: any; saved: boolean; o
             transition: 'color 0.2s'
           }}
         >
-          {saved ? 'Saved to lists' : 'Save provider'}
+          {saved ? <Bookmark size={18} fill="#7e22ce" /> : <Bookmark size={18} />}
+          {saved ? 'Saved' : 'Save'}
         </button>
       </div>
     </div>

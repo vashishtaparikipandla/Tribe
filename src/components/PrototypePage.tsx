@@ -10,6 +10,7 @@ import UserProfileScreen from '@/sections/prototype/UserProfile';
 import ProviderPassportScreen from '@/sections/prototype/ProviderPassport';
 import ConsensusRequestScreen from '@/sections/prototype/ConsensusRequest';
 import SavedProvidersScreen from '@/sections/prototype/SavedProviders';
+import CategoryDirectoryScreen from '@/sections/prototype/CategoryDirectory';
 import { Home, Search as SearchIcon, Users, Plus, User } from 'lucide-react'; // Removed Tag for Deals
 
 export type Screen =
@@ -23,7 +24,8 @@ export type Screen =
   | 'user-profile'
   | 'provider-passport'
   | 'consensus-request'
-  | 'saved-providers';
+  | 'saved-providers'
+  | 'category-directory';
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('auth');
@@ -63,11 +65,13 @@ export function PrototypePage() {
         return <ConsensusRequestScreen onNavigate={setScreen} />;
       case 'saved-providers':
         return <SavedProvidersScreen onNavigate={setScreen} />;
+      case 'category-directory':
+        return <CategoryDirectoryScreen onNavigate={setScreen} />;
     }
   };
 
   // Determine if current screen has a dark header (so status bar text should be white)
-  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport', 'saved-providers'].includes(screen);
+  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport', 'saved-providers', 'category-directory'].includes(screen);
 
   return (
     <div className="prototype-container">

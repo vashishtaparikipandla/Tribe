@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserPlus, ShieldAlert, Users, Wrench, Stethoscope, GraduationCap, ChevronRight, ChevronDown, ArrowLeft, Calendar, Settings, List, Orbit, MapPin, Info, MessageCircle } from 'lucide-react';
+import { UserPlus, ShieldAlert, Users, Wrench, Stethoscope, GraduationCap, ChevronRight, ChevronDown, ArrowLeft, Calendar, Settings, List, Orbit, MapPin, Info, MessageCircle, Phone } from 'lucide-react';
 import TribeMapView from './TribeMapView';
 import ConstellationGraph from './ConstellationGraph';
 
@@ -159,20 +159,35 @@ export default function MyTribeScreen({ onNavigate }: { onNavigate?: (screen: st
                     transition: 'all 0.3s ease'
                   }}>
                     {/* Collapsed Header */}
-                    <div onClick={() => setExpandedProvider(isExpanded ? null : p.id)} style={{ padding: '20px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <img src={p.image} style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover' }} />
-                        <div>
+                    <div onClick={() => setExpandedProvider(isExpanded ? null : p.id)} style={{ padding: '16px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
+                        <img src={p.image} style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
+                        <div style={{ flex: 1 }}>
                           <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a' }}>{p.name}</div>
-                          <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '2px', color: '#059669', background: '#dcfce7', padding: '2px 6px', borderRadius: '6px', fontWeight: 700 }}>
-                              Trust: {p.composite_score}
-                            </span>
-                            • {p.category}
+                          
+                          <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '4px', margin: '4px 0' }}>
+                            <MapPin size={12} /> 1.2 km away
+                          </div>
+
+                          <div style={{ display: 'flex', gap: '4px', height: '14px', alignItems: 'flex-end' }}>
+                            <div style={{ width: '6px', height: `${p.metrics.budget}%`, background: p.metrics.budget > 80 ? '#10b981' : p.metrics.budget > 60 ? '#f59e0b' : '#ef4444', borderRadius: '2px' }} />
+                            <div style={{ width: '6px', height: `${p.metrics.efficiency}%`, background: p.metrics.efficiency > 80 ? '#10b981' : p.metrics.efficiency > 60 ? '#f59e0b' : '#ef4444', borderRadius: '2px' }} />
+                            <div style={{ width: '6px', height: `${p.metrics.quality}%`, background: p.metrics.quality > 80 ? '#10b981' : p.metrics.quality > 60 ? '#f59e0b' : '#ef4444', borderRadius: '2px' }} />
+                            <div style={{ width: '6px', height: `${p.metrics.reliability}%`, background: p.metrics.reliability > 80 ? '#10b981' : p.metrics.reliability > 60 ? '#f59e0b' : '#ef4444', borderRadius: '2px' }} />
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#059669', marginLeft: '6px' }}>{p.composite_score}</span>
                           </div>
                         </div>
                       </div>
-                      {isExpanded ? <ChevronDown size={20} color="#cbd5e1" /> : <ChevronRight size={20} color="#cbd5e1" />}
+                      
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <a href="tel:+1234567890" onClick={(e) => e.stopPropagation()} style={{
+                          background: '#f0fdf4', color: '#16a34a', width: '36px', height: '36px', borderRadius: '50%',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none'
+                        }}>
+                          <Phone size={16} fill="currentColor" />
+                        </a>
+                        {isExpanded ? <ChevronDown size={20} color="#cbd5e1" /> : <ChevronRight size={20} color="#cbd5e1" />}
+                      </div>
                     </div>
 
                     {/* Expanded Content */}
