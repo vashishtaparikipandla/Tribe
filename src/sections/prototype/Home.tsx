@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight, Gift, History, Plus } from 'lucide-react';
+import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight, Gift, History, Plus, MapPin } from 'lucide-react';
 
 const topContacts = [
   { id: 1, name: 'Priya', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
@@ -104,6 +104,29 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
           }}>
             <MessageCircle size={18} /> Ask my tribe
           </button>
+        </div>
+      </div>
+
+      {/* City Movement Banner (9.5) */}
+      <div style={{ padding: '16px 20px 0' }} className="animate-slide-up-fade delay-150">
+        <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '16px', padding: '16px', display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+          <div style={{ background: '#16a34a', color: '#ffffff', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <MapPin size={16} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: '#166534', marginBottom: '4px' }}>Welcome to Mumbai</div>
+            <div style={{ fontSize: '13px', color: '#15803d', marginBottom: '12px', lineHeight: 1.4 }}>
+              You seem to be in a new city. Update your primary city to see local recommendations from your Tribe?
+            </div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button onClick={() => onNavigate('edit-profile')} style={{ background: '#16a34a', color: '#ffffff', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                Update City
+              </button>
+              <button style={{ background: 'transparent', color: '#166534', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                Dismiss
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

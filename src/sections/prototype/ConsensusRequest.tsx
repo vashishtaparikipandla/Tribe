@@ -56,6 +56,21 @@ export default function ConsensusRequestScreen({ onNavigate }: { onNavigate: (s:
               Ask your direct contacts who have used a provider in this category. No spam, just targeted requests.
             </p>
 
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: '#334155', marginBottom: '8px' }}>Where do you need them?</label>
+            <div style={{ marginBottom: '24px' }}>
+              <select style={{
+                width: '100%', padding: '14px 16px', borderRadius: '12px', border: '1px solid #cbd5e1',
+                background: '#ffffff', fontSize: '15px', color: '#0f172a', fontWeight: 600, outline: 'none',
+                appearance: 'none'
+              }}>
+                <option value="Hyderabad">Hyderabad (Primary)</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+              </select>
+              <p style={{ margin: '6px 0 0', fontSize: '12px', color: '#94a3b8' }}>Only contacts who have providers in this city will be asked.</p>
+            </div>
+
             <label style={{ display: 'block', fontSize: '14px', fontWeight: 700, color: '#334155', marginBottom: '8px' }}>What do you need?</label>
             <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '24px', scrollbarWidth: 'none' }}>
               {categories.map(c => (

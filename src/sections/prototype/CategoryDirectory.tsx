@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { ArrowLeft, Search as SearchIcon, ChevronDown, ChevronUp, Stethoscope, Wrench, BookOpen, Car, Smile, Briefcase } from 'lucide-react';
+import { ArrowLeft, Search as SearchIcon, ChevronDown, ChevronUp, Stethoscope, Wrench, BookOpen, Car, Smile, Briefcase, Building, Check, Star } from 'lucide-react';
+
+const societyVendors = [
+  { id: 101, name: 'Ramesh Singh', category: 'Plumber', rating: 4.8 },
+  { id: 102, name: 'CoolBreeze AC Services', category: 'AC Repair', rating: 4.5 },
+];
 
 const categoryGroups = [
   {
@@ -102,6 +107,38 @@ export default function CategoryDirectoryScreen({ onNavigate }: { onNavigate: (s
 
       {/* Directory Content */}
       <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        
+        {/* Society Approved Section */}
+        {searchQuery === '' && (
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <div style={{ background: '#e0e7ff', color: '#4338ca', padding: '6px', borderRadius: '8px' }}>
+                <Building size={16} />
+              </div>
+              <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Prestige Falcon City Approved</h2>
+            </div>
+            
+            <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
+              {societyVendors.map(vendor => (
+                <div key={vendor.id} onClick={() => onNavigate('provider-profile')} style={{ 
+                  minWidth: '200px', background: '#ffffff', border: '1px solid #c7d2fe', borderRadius: '16px', padding: '16px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(67, 56, 202, 0.05)'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a' }}>{vendor.name}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px', background: '#f8fafc', padding: '2px 6px', borderRadius: '8px', fontSize: '12px', fontWeight: 700, color: '#4338ca' }}>
+                      <Star size={12} fill="#4338ca" /> {vendor.rating}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '12px' }}>{vendor.category}</div>
+                  <div style={{ fontSize: '11px', color: '#4338ca', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', background: '#eef2ff', padding: '4px 8px', borderRadius: '12px', display: 'inline-flex' }}>
+                    <Check size={12} /> Society Verified
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {filteredGroups.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '40px 20px', color: '#64748b' }}>
             <p style={{ fontSize: '16px', fontWeight: 500 }}>No categories found matching "{searchQuery}".</p>

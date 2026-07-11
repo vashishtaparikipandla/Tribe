@@ -34,16 +34,65 @@ const slides = [
 
 export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showPersonalization, setShowPersonalization] = useState(false);
 
   const next = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(s => s + 1);
+    } else if (!showPersonalization) {
+      // Simulate verifying phone and showing personalization instead of finishing
+      setShowPersonalization(true);
     } else {
       onDone();
     }
   };
 
   const slide = slides[currentSlide];
+
+  if (showPersonalization) {
+    return (
+      <div style={{ height: '100%', background: '#ffffff', display: 'flex', flexDirection: 'column', padding: '32px' }} className="animate-fade-in">
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '32px' }}>
+            <div style={{ position: 'relative', width: '120px', height: '80px' }}>
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style={{ width: '64px', height: '64px', borderRadius: '50%', border: '4px solid #ffffff', position: 'absolute', left: 0, zIndex: 3 }} />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style={{ width: '64px', height: '64px', borderRadius: '50%', border: '4px solid #ffffff', position: 'absolute', left: '30px', zIndex: 2 }} />
+              <div style={{ width: '64px', height: '64px', borderRadius: '50%', border: '4px solid #ffffff', position: 'absolute', left: '60px', zIndex: 1, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', fontWeight: 700 }}>
+                +1
+              </div>
+            </div>
+          </div>
+
+          <h1 style={{ fontSize: '32px', fontWeight: 800, color: '#0f172a', textAlign: 'center', margin: '0 0 16px', lineHeight: 1.1, letterSpacing: '-0.5px' }}>
+            You're already in<br/>good company.
+          </h1>
+          
+          <p style={{ fontSize: '18px', color: '#475569', textAlign: 'center', margin: '0 0 32px', lineHeight: 1.5, fontWeight: 500 }}>
+            <strong style={{ color: '#0f172a' }}>Priya, Arjun</strong> and 1 other already have you in their contacts on Tribe.
+          </p>
+
+          <div style={{ background: '#f8fafc', padding: '24px', borderRadius: '24px', border: '1px dashed #cbd5e1' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', margin: '0 0 12px' }}>Why connect contacts?</h3>
+            <ul style={{ margin: 0, paddingLeft: '20px', color: '#475569', fontSize: '14px', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <li>See which providers Priya and Arjun trust.</li>
+              <li>Your contacts stay private on your device.</li>
+              <li>We never message anyone on your behalf.</li>
+            </ul>
+          </div>
+        </div>
+
+        <button onClick={next} style={{
+          width: '100%', padding: '18px', background: 'linear-gradient(135deg, #6b21a8, #4c1d95)', color: '#ffffff',
+          border: 'none', borderRadius: '32px', fontSize: '16px', fontWeight: 700, cursor: 'pointer',
+          boxShadow: '0 8px 16px rgba(107, 33, 168, 0.25)', transition: 'transform 0.1s',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+        }}>
+          <Users size={20} /> Sync contacts to see their providers
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div style={{
