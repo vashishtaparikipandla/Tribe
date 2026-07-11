@@ -87,50 +87,48 @@ export default function MyTribeScreen({ onNavigate }: { onNavigate?: (screen: st
           position: 'relative', zIndex: 10,
           borderBottom: viewMode === 'constellation' ? '1px solid rgba(255,255,255,0.1)' : 'none'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <button onClick={() => { setActiveGroup(null); setViewMode('list'); }} style={{
-                background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%',
-                width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#ffffff', cursor: 'pointer', backdropFilter: 'blur(4px)'
-              }}>
-                <ArrowLeft size={20} />
-              </button>
-              <div>
-                <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0, letterSpacing: '-0.5px' }}>
-                  {selectedGroup.name}
-                </h1>
-                <p style={{ color: viewMode === 'constellation' ? '#94a3b8' : '#e9d5ff', fontSize: '14px', margin: '2px 0 0', fontWeight: 500 }}>
-                  {categoryProviders.length} Providers in your network
-                </p>
-              </div>
-            </div>
-            
-            {/* View Toggle */}
-            <div style={{ display: 'flex', background: 'rgba(255,255,255,0.15)', borderRadius: '12px', padding: '4px', backdropFilter: 'blur(8px)' }}>
-              <button onClick={() => setViewMode('list')} style={{
-                background: viewMode === 'list' ? '#ffffff' : 'transparent', color: viewMode === 'list' ? '#4c1d95' : '#ffffff',
-                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
-              }}>
-                <List size={14} /> List
-              </button>
-              <button onClick={() => setViewMode('map')} style={{
-                background: viewMode === 'map' ? '#ffffff' : 'transparent', color: viewMode === 'map' ? '#4c1d95' : '#ffffff',
-                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
-              }}>
-                <MapPin size={14} /> Map
-              </button>
-              <button onClick={() => setViewMode('constellation')} style={{
-                background: viewMode === 'constellation' ? '#ffffff' : 'transparent', color: viewMode === 'constellation' ? '#4c1d95' : '#ffffff',
-                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
-              }}>
-                <Orbit size={14} /> Graph
-              </button>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '20px' }}>
+            <button onClick={() => { setActiveGroup(null); setViewMode('list'); }} style={{
+              background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%',
+              width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: '#ffffff', cursor: 'pointer', backdropFilter: 'blur(4px)', flexShrink: 0
+            }}>
+              <ArrowLeft size={20} />
+            </button>
+            <div>
+              <h1 style={{ fontSize: '22px', fontWeight: 700, margin: 0, letterSpacing: '-0.5px' }}>
+                {selectedGroup.name}
+              </h1>
+              <p style={{ color: viewMode === 'constellation' ? '#94a3b8' : '#e9d5ff', fontSize: '14px', margin: '2px 0 0', fontWeight: 500 }}>
+                {categoryProviders.length} Providers in your network
+              </p>
             </div>
           </div>
           
+          {/* View Toggle */}
+          <div style={{ display: 'flex', width: '100%', background: 'rgba(255,255,255,0.15)', borderRadius: '12px', padding: '4px', backdropFilter: 'blur(8px)', marginBottom: '16px' }}>
+            <button onClick={() => setViewMode('list')} style={{
+              flex: 1, background: viewMode === 'list' ? '#ffffff' : 'transparent', color: viewMode === 'list' ? '#4c1d95' : '#ffffff',
+              border: 'none', borderRadius: '8px', padding: '8px 10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s'
+            }}>
+              <List size={16} /> List
+            </button>
+            <button onClick={() => setViewMode('map')} style={{
+              flex: 1, background: viewMode === 'map' ? '#ffffff' : 'transparent', color: viewMode === 'map' ? '#4c1d95' : '#ffffff',
+              border: 'none', borderRadius: '8px', padding: '8px 10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s'
+            }}>
+              <MapPin size={16} /> Map
+            </button>
+            <button onClick={() => setViewMode('constellation')} style={{
+              flex: 1, background: viewMode === 'constellation' ? '#ffffff' : 'transparent', color: viewMode === 'constellation' ? '#4c1d95' : '#ffffff',
+              border: 'none', borderRadius: '8px', padding: '8px 10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s'
+            }}>
+              <Orbit size={16} /> Graph
+            </button>
+          </div>
+          
           {/* Filter Chips - Persistent across views */}
-          <div style={{ display: 'flex', gap: '8px', marginTop: '20px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none' }}>
+          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none', margin: '0 -24px', padding: '0 24px 4px 24px', WebkitOverflowScrolling: 'touch' }}>
             {['All', 'Trust 9+', '$$ Budget', 'Available This Week'].map(filter => (
               <button key={filter} onClick={() => setActiveFilter(filter)} style={{
                 background: activeFilter === filter ? '#ffffff' : 'rgba(255,255,255,0.1)',

@@ -79,38 +79,41 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
             </button>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
-              <h1 style={{ fontSize: '28px', fontWeight: 800, margin: '0 0 8px', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                Dr. Anand Sharma
-                <ShieldCheck size={24} color="#10b981" />
-              </h1>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ color: '#e9d5ff', fontSize: '15px', fontWeight: 600 }}>Cardiologist</span>
-                <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>•</span>
-                <span style={{ color: '#ffffff', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
-                  <MapPin size={14} /> Banjara Hills, Hyd
-                </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
+              <div style={{ flex: 1 }}>
+                <h1 style={{ fontSize: '26px', fontWeight: 800, margin: '0 0 8px', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  Dr. Anand Sharma
+                  <ShieldCheck size={24} color="#10b981" />
+                </h1>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  <span style={{ color: '#e9d5ff', fontSize: '15px', fontWeight: 600 }}>Cardiologist</span>
+                  <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>•</span>
+                  <span style={{ color: '#ffffff', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 500 }}>
+                    <MapPin size={14} /> Banjara Hills, Hyd
+                  </span>
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
-                <a href="tel:+919876543210" style={{ 
-                  display: 'inline-flex', alignItems: 'center', gap: '6px', 
-                  color: '#ffffff', fontSize: '14px', fontWeight: 600, 
-                  textDecoration: 'none', background: 'rgba(255,255,255,0.15)', padding: '6px 12px', borderRadius: '20px'
-                }}>
-                  <Phone size={14} /> +91 98765 43210
-                </a>
-                <button onClick={() => onNavigate('provider-passport')} style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '6px', 
-                  color: '#10b981', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer',
-                  background: 'rgba(16, 185, 129, 0.15)', padding: '6px 12px', borderRadius: '20px'
-                }}>
-                  View Passport
-                </button>
-              </div>
+              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                   style={{ width: '64px', height: '64px', borderRadius: '16px', border: '2px solid rgba(255,255,255,0.2)', objectFit: 'cover', flexShrink: 0 }} />
             </div>
-            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                 style={{ width: '72px', height: '72px', borderRadius: '16px', border: '2px solid rgba(255,255,255,0.2)', objectFit: 'cover' }} />
+            
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <a href="tel:+919876543210" style={{ 
+                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', 
+                color: '#ffffff', fontSize: '14px', fontWeight: 700, 
+                textDecoration: 'none', background: 'rgba(255,255,255,0.15)', padding: '12px', borderRadius: '16px'
+              }}>
+                <Phone size={16} /> Call Provider
+              </a>
+              <button onClick={() => onNavigate('provider-passport')} style={{
+                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', 
+                color: '#4c1d95', fontSize: '14px', fontWeight: 700, border: 'none', cursor: 'pointer',
+                background: '#ffffff', padding: '12px', borderRadius: '16px'
+              }}>
+                View Passport
+              </button>
+            </div>
           </div>
         </div>
 
@@ -119,17 +122,21 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
           {/* Chain of Trust */}
           <div style={{ marginBottom: '32px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Chain of Trust</h3>
-            <div style={{ background: '#ffffff', padding: '16px', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 4px 12px rgba(0,0,0,0.02)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#7e22ce', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>You</div>
-              <div style={{ height: '2px', flex: 1, background: '#e2e8f0' }} />
-              <img src={recommenders[0].image} style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
-              <div style={{ height: '2px', flex: 1, background: '#e2e8f0' }} />
-              <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style={{ width: '32px', height: '32px', borderRadius: '50%' }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '13px', color: '#64748b', fontWeight: 500, padding: '0 4px' }}>
-              <span></span>
-              <span>Mahendra</span>
-              <span>Anand</span>
+            <div style={{ background: '#ffffff', padding: '16px', borderRadius: '16px', border: '1px solid #f1f5f9', boxShadow: '0 4px 12px rgba(0,0,0,0.02)', display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#7e22ce', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', fontWeight: 700 }}>You</div>
+                <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>You</div>
+              </div>
+              <div style={{ height: '2px', flex: 1, background: '#e2e8f0', margin: '0 8px', alignSelf: 'flex-start', marginTop: '20px' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <img src={recommenders[0].image} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
+                <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Mahendra</div>
+              </div>
+              <div style={{ height: '2px', flex: 1, background: '#e2e8f0', margin: '0 8px', alignSelf: 'flex-start', marginTop: '20px' }} />
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
+                <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Anand</div>
+              </div>
             </div>
           </div>
 
