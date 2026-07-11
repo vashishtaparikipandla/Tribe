@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { ArrowLeft, MapPin, Phone, ShieldCheck, Info, UserCheck, Mic, Calendar } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, ShieldCheck, Info, UserCheck, Mic, Calendar, MessageCircle } from 'lucide-react';
 
 const METRIC_DEFINITIONS = {
   'Budget Friendly': 'Did the price match what was quoted, and was it fair for the work done?',
@@ -160,6 +160,21 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
           {/* Recommendations */}
           <div>
             <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px' }}>Recommendations</h2>
+            
+            {recommenders.length <= 3 && (
+              <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '16px', marginBottom: '16px', border: '1px dashed #cbd5e1', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ fontSize: '14px', color: '#64748b', fontWeight: 500, flex: 1 }}>
+                  Only a few reviews in your tribe.
+                </div>
+                <button onClick={() => onNavigate('consensus')} style={{
+                  background: '#ffffff', color: '#6b21a8', border: '1px solid #e9d5ff', borderRadius: '12px', padding: '8px 12px',
+                  fontSize: '13px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '6px', cursor: 'pointer'
+                }}>
+                  <MessageCircle size={14} /> Ask for more opinions
+                </button>
+              </div>
+            )}
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {recommenders.map(r => (
                 <div key={r.name} style={{ background: '#ffffff', padding: '20px', borderRadius: '20px', border: '1px solid #f1f5f9', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}>

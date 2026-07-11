@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users } from 'lucide-react';
+import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle } from 'lucide-react';
 
 const categories = [
   { label: 'Doctors', subtitle: '124 trusted nearby', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop' },
@@ -83,11 +83,19 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
             padding: '16px',
             display: 'flex', alignItems: 'center', gap: '12px',
             cursor: 'text',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            marginBottom: '16px'
           }} onClick={() => onNavigate('search')}>
             <SearchIcon size={20} color="#6b21a8" />
             <span style={{ color: '#94a3b8', fontSize: '16px', fontWeight: 500 }}>Search plumber, doctor...</span>
           </div>
+
+          <button onClick={() => onNavigate('consensus')} style={{
+            background: 'rgba(255,255,255,0.15)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '12px', padding: '10px 16px', fontSize: '14px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', backdropFilter: 'blur(8px)'
+          }}>
+            <MessageCircle size={18} /> Ask my tribe
+          </button>
         </div>
       </div>
 

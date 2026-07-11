@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Search as SearchIcon, X, Clock, ChevronRight } from 'lucide-react';
+import { Search as SearchIcon, X, Clock, ChevronRight, MessageCircle, UserPlus } from 'lucide-react';
 
 const recentSearches = ['Plumber near me', 'Cardiologist', 'Mechanic', 'Math Tutor'];
 const popularSearches = ['Electrician', 'Carpenter', 'Dentist', 'Caterer'];
@@ -147,6 +147,38 @@ export default function SearchScreen({ onNavigate }: { onNavigate: (s: Screen) =
                 Recommended by <strong style={{ color: '#0f172a' }}>Mahendra</strong> and 2 others
               </div>
             </div>
+
+            {/* Fallback Options */}
+            <div style={{ marginTop: '32px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#64748b', marginBottom: '16px', textAlign: 'center' }}>
+                Didn't find what you were looking for?
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <button onClick={() => onNavigate('consensus')} style={{
+                  background: '#ffffff', color: '#6b21a8', border: '1px solid #e9d5ff', borderRadius: '16px', padding: '16px',
+                  fontSize: '15px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <MessageCircle size={20} />
+                    <span>Ask your tribe</span>
+                  </div>
+                  <ChevronRight size={20} color="#cbd5e1" />
+                </button>
+                <button onClick={() => onNavigate('add-recommendation')} style={{
+                  background: '#ffffff', color: '#0f172a', border: '1px solid #e2e8f0', borderRadius: '16px', padding: '16px',
+                  fontSize: '15px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <UserPlus size={20} />
+                    <span>Onboard them yourself</span>
+                  </div>
+                  <ChevronRight size={20} color="#cbd5e1" />
+                </button>
+              </div>
+            </div>
+
           </div>
         ) : null}
       </div>

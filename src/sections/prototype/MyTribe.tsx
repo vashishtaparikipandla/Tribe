@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { UserPlus, ShieldAlert, Users, Wrench, Stethoscope, GraduationCap, ChevronRight, ChevronDown, ArrowLeft, Calendar, Settings, List, Orbit, Info } from 'lucide-react';
+import { UserPlus, ShieldAlert, Users, Wrench, Stethoscope, GraduationCap, ChevronRight, ChevronDown, ArrowLeft, Calendar, Settings, List, Orbit, MapPin, Info, MessageCircle } from 'lucide-react';
+import TribeMapView from './TribeMapView';
+import ConstellationGraph from './ConstellationGraph';
 
 const connections = [
   { id: 1, name: 'Mahendra', relation: 'Your Contact', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', interaction_score: 95, cx: 30, cy: 30 },
@@ -64,11 +66,11 @@ const MetricBar = ({ label, score }: { label: string, score: number }) => (
   </div>
 );
 
-export default function MyTribeScreen() {
+export default function MyTribeScreen({ onNavigate }: { onNavigate?: (screen: string) => void }) {
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<'list' | 'constellation'>('list');
+  const [viewMode, setViewMode] = useState<'list' | 'constellation' | 'map'>('list');
+  const [activeFilter, setActiveFilter] = useState('All');
   const [expandedProvider, setExpandedProvider] = useState<number | null>(null);
-  const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
 
   const selectedGroup = groups.find(g => g.id === activeGroup);
   const categoryProviders = activeGroup ? mockProviders[activeGroup] || [] : [];
@@ -106,29 +108,39 @@ export default function MyTribeScreen() {
             
             {/* View Toggle */}
             <div style={{ display: 'flex', background: 'rgba(255,255,255,0.15)', borderRadius: '12px', padding: '4px', backdropFilter: 'blur(8px)' }}>
-              <button 
-                onClick={() => setViewMode('list')}
-                style={{
-                  background: viewMode === 'list' ? '#ffffff' : 'transparent',
-                  color: viewMode === 'list' ? '#4c1d95' : '#ffffff',
-                  border: 'none', borderRadius: '8px', padding: '6px 12px',
-                  display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
-                }}
-              >
-                <List size={16} /> List
+              <button onClick={() => setViewMode('list')} style={{
+                background: viewMode === 'list' ? '#ffffff' : 'transparent', color: viewMode === 'list' ? '#4c1d95' : '#ffffff',
+                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
+              }}>
+                <List size={14} /> List
               </button>
-              <button 
-                onClick={() => setViewMode('constellation')}
-                style={{
-                  background: viewMode === 'constellation' ? '#ffffff' : 'transparent',
-                  color: viewMode === 'constellation' ? '#4c1d95' : '#ffffff',
-                  border: 'none', borderRadius: '8px', padding: '6px 12px',
-                  display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
-                }}
-              >
-                <Orbit size={16} /> Map
+              <button onClick={() => setViewMode('map')} style={{
+                background: viewMode === 'map' ? '#ffffff' : 'transparent', color: viewMode === 'map' ? '#4c1d95' : '#ffffff',
+                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
+              }}>
+                <MapPin size={14} /> Map
+              </button>
+              <button onClick={() => setViewMode('constellation')} style={{
+                background: viewMode === 'constellation' ? '#ffffff' : 'transparent', color: viewMode === 'constellation' ? '#4c1d95' : '#ffffff',
+                border: 'none', borderRadius: '8px', padding: '6px 10px', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s'
+              }}>
+                <Orbit size={14} /> Graph
               </button>
             </div>
+          </div>
+          
+          {/* Filter Chips - Persistent across views */}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '20px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none' }}>
+            {['All', 'Trust 9+', '$$ Budget', 'Available This Week'].map(filter => (
+              <button key={filter} onClick={() => setActiveFilter(filter)} style={{
+                background: activeFilter === filter ? '#ffffff' : 'rgba(255,255,255,0.1)',
+                color: activeFilter === filter ? '#4c1d95' : '#ffffff',
+                border: activeFilter === filter ? 'none' : '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '16px', padding: '6px 12px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s'
+              }}>
+                {filter}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -196,79 +208,37 @@ export default function MyTribeScreen() {
                 );
               })}
               {categoryProviders.length === 0 && (
-                <div style={{ textAlign: 'center', color: '#64748b', padding: '40px 20px', fontSize: '15px' }}>
-                  No providers found in this category from your Tribe.
+                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                  <div style={{ color: '#64748b', fontSize: '15px', marginBottom: '16px' }}>
+                    No providers found in this category from your Tribe.
+                  </div>
+                  <button onClick={() => onNavigate?.('consensus')} style={{
+                    background: '#10b981', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '12px 24px',
+                    fontSize: '15px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
+                  }}>
+                    <MessageCircle size={18} /> Ask my tribe
+                  </button>
                 </div>
               )}
             </div>
           </div>
+        ) : viewMode === 'map' ? (
+          /* Map View */
+          <div className="animate-fade-in" style={{ flex: 1 }}>
+            <TribeMapView providers={categoryProviders} />
+          </div>
         ) : (
-          /* Constellation View */
-          <div className="animate-fade-in" style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: '20px', left: '20px', right: '20px', textAlign: 'center', color: '#94a3b8', fontSize: '14px', zIndex: 1 }}>
-              <p>Closer, brighter nodes are your strongest connections.</p>
-              <p>Tap a node to see their recommendations.</p>
-            </div>
-            
-            {categoryProviders.map((provider) => {
-              const conn = connections.find(c => c.id === provider.recommender_id);
-              if (!conn) return null;
-              
-              // Calculate dynamic sizing and glow based on interaction score
-              const size = 32 + (conn.interaction_score / 100) * 24; // 32px to 56px
-              const glow = (conn.interaction_score / 100) * 15;
-              const isActive = activeNodeId === conn.id;
-
-              return (
-                <div key={provider.id} style={{
-                  position: 'absolute',
-                  left: `${conn.cx}%`,
-                  top: `${conn.cy}%`,
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: isActive ? 10 : 5
-                }}>
-                  {/* Connection Node */}
-                  <div 
-                    onClick={() => setActiveNodeId(isActive ? null : conn.id)}
-                    style={{
-                      width: `${size}px`, height: `${size}px`, borderRadius: '50%',
-                      background: `url(${conn.image}) center/cover`,
-                      border: isActive ? '3px solid #c084fc' : '2px solid rgba(255,255,255,0.8)',
-                      boxShadow: isActive ? `0 0 30px 10px rgba(192, 132, 252, 0.6)` : `0 0 ${glow}px ${glow/2}px rgba(192, 132, 252, 0.4)`,
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                  />
-                  
-                  {/* Satellite Label (Provider) */}
-                  {isActive && (
-                    <div className="animate-slide-up-fade" style={{
-                      position: 'absolute',
-                      top: '-10px', left: `calc(100% + 16px)`,
-                      background: 'rgba(30, 41, 59, 0.9)', backdropFilter: 'blur(8px)',
-                      padding: '12px 16px', borderRadius: '16px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      width: '180px', pointerEvents: 'none',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.5)'
-                    }}>
-                      <div style={{ fontSize: '11px', color: '#a8a29e', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-                        {conn.name} recommends
-                      </div>
-                      <div style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginBottom: '4px', lineHeight: 1.2 }}>
-                        {provider.name}
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#10b981', fontSize: '13px', fontWeight: 700 }}>
-                        Trust: {provider.composite_score}
-                      </div>
-                      {/* Connecting Line (SVG simulation) */}
-                      <svg style={{ position: 'absolute', left: '-16px', top: '24px', width: '16px', height: '2px', overflow: 'visible' }}>
-                        <line x1="0" y1="0" x2="16" y2="0" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+          /* Constellation Physics View */
+          <div className="animate-fade-in" style={{ flex: 1 }}>
+            <ConstellationGraph 
+              contacts={connections} 
+              providers={categoryProviders} 
+              onNodeClick={(id) => {
+                // Future: navigate to provider profile
+                console.log('Navigate to provider', id);
+              }}
+            />
           </div>
         )}
       </div>
