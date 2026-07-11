@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Wrench, Car } from 'lucide-react';
+import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users } from 'lucide-react';
 
 const categories = [
   { label: 'Doctors', subtitle: '124 trusted nearby', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop' },
@@ -10,7 +10,7 @@ const categories = [
   { label: 'Mechanics', subtitle: '63 trusted nearby', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=400&auto=format&fit=crop' },
 ];
 
-const feed = [
+const initialFeed = [
   {
     id: 1,
     provider: 'Dr. Anand Sharma',
@@ -29,31 +29,14 @@ const feed = [
   },
   {
     id: 2,
-    provider: 'Raju Plumbing Works',
-    category: 'Plumber',
-    categoryIcon: Wrench,
-    score: 4.6,
-    tags: ['On time', 'Fair pricing'],
-    review: '"Fixed the leak in 45 mins flat. Showed up on time, quoted upfront. No drama whatsoever."',
+    type: 'recommendation',
+    provider: { name: 'QuickFix Plumbing', category: 'Plumber', rating: 4.5, reviews: 8 },
+    author: { name: 'Megha', relation: 'Your Contact' },
+    content: 'Fixed my leaking sink in 30 mins. Charged a fair price. Very professional.',
     ago: '1d ago',
     saved: true,
     recommenders: [
       { name: 'Megha', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact' }
-    ]
-  },
-  {
-    id: 3,
-    provider: 'Vikram\'s Auto',
-    category: 'Mechanic',
-    categoryIcon: Car,
-    score: 4.9,
-    tags: ['Transparent', 'Expert'],
-    review: '"Trusted this guy with my car for 3 years. Never been overcharged, always explains the issue."',
-    ago: '3d ago',
-    saved: false,
-    recommenders: [
-      { name: 'Chunky', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact' },
-      { name: 'Priya', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact' },
     ]
   },
 ];
@@ -61,15 +44,15 @@ const feed = [
 export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
   const [savedIds, setSavedIds] = useState<number[]>([2]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [feed, setFeed] = useState<any[]>([]);
 
   const toggle = (id: number) => setSavedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   return (
     <div style={{ background: '#f8fafc', minHeight: '100%' }}>
-      {/* Welcome Banner (Dark Purple Gradient) */}
       <div style={{
         background: 'linear-gradient(135deg, #4c1d95, #3b0764)',
-        padding: '64px 20px 32px', // 44px + 20px for status bar
+        padding: '64px 20px 32px',
         borderBottomLeftRadius: '24px',
         borderBottomRightRadius: '24px',
         boxShadow: '0 4px 20px rgba(76, 29, 149, 0.15)',
@@ -94,7 +77,6 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
             </button>
           </div>
           
-          {/* Search bar */}
           <div style={{
             background: '#ffffff',
             borderRadius: '16px',
@@ -109,7 +91,6 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
         </div>
       </div>
 
-      {/* Promotional Banner */}
       <div style={{ padding: '24px 20px 0' }} className="animate-slide-up-fade delay-150">
         <div style={{
           background: 'linear-gradient(135deg, #1e293b, #0f172a)',
@@ -130,12 +111,10 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
               <ChevronRight size={24} />
             </button>
           </div>
-          {/* Abstract circles for design */}
           <div style={{ position: 'absolute', top: -30, right: -20, width: 120, height: 120, background: 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%' }} />
         </div>
       </div>
 
-      {/* Category Cards */}
       <div style={{ padding: '24px 0 12px' }} className="animate-slide-up-fade delay-200">
         <div style={{ display: 'flex', gap: '16px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '16px' }}>
           {categories.map((cat) => (
@@ -158,30 +137,56 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
                 <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>{cat.subtitle}</div>
               </div>
             </button>
-          ))}
-        </div>
+            ))}
+          </div>
       </div>
 
-      {/* Feed */}
-      <div style={{ padding: '12px 20px 24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} className="animate-slide-up-fade delay-300">
-          <span style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', letterSpacing: '0.2px' }}>
-            Recommended by your Tribe
-          </span>
-        </div>
+      <div style={{ padding: '0 20px 24px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px', letterSpacing: '-0.5px' }}>
+          Discover from your Tribe
+        </h3>
 
-        {feed.map((item, i) => (
-          <div key={item.id} className={`animate-slide-up-fade delay-${(i + 3) * 100 > 500 ? 500 : (i + 3) * 100}`}>
-            <FeedCard item={item} saved={savedIds.includes(item.id)} onSave={() => toggle(item.id)} onTap={() => onNavigate('provider-profile')} />
+        {feed.length === 0 ? (
+          <div className="animate-slide-up-fade delay-300" style={{
+            background: '#ffffff', borderRadius: '24px', padding: '32px 24px',
+            border: '1px solid #e2e8f0', textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+          }}>
+            <div style={{ width: '64px', height: '64px', background: '#faf5ff', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+              <Users size={32} color="#7e22ce" />
+            </div>
+            <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', margin: '0 0 8px' }}>Your Tribe is empty</h4>
+            <p style={{ fontSize: '14px', color: '#64748b', margin: '0 0 24px', lineHeight: 1.5 }}>
+              Tribe works best when your friends are here. Invite contacts to see their trusted service recommendations.
+            </p>
+            <button 
+              onClick={() => setFeed(initialFeed)}
+              style={{
+                width: '100%', padding: '16px',
+                background: 'linear-gradient(135deg, #6b21a8, #4c1d95)',
+                color: '#ffffff', border: 'none', borderRadius: '32px',
+                fontSize: '15px', fontWeight: 600, cursor: 'pointer',
+                boxShadow: '0 8px 16px rgba(76, 29, 149, 0.2)'
+              }}
+            >
+              Invite your first contact
+            </button>
           </div>
-        ))}
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {feed.map((item, i) => (
+              <div key={item.id} className={`animate-slide-up-fade delay-${300 + (i * 100)}`}>
+                <FeedCard item={item} saved={savedIds.includes(item.id)} onSave={() => toggle(item.id)} onTap={() => onNavigate('provider-profile')} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved: boolean; onSave: () => void; onTap: () => void }) {
-  const Icon = item.categoryIcon;
+function FeedCard({ item, saved, onSave, onTap }: { item: any; saved: boolean; onSave: () => void; onTap: () => void }) {
+  const Icon = item.categoryIcon || Stethoscope;
   
   return (
     <div
@@ -211,21 +216,27 @@ function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved:
             <Icon size={24} />
           </div>
           <div>
-            <div style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.2px' }}>{item.provider}</div>
-            <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px', fontWeight: 500 }}>{item.category}</div>
+            <div style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.2px' }}>
+              {typeof item.provider === 'string' ? item.provider : item.provider.name}
+            </div>
+            <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px', fontWeight: 500 }}>
+              {typeof item.provider === 'string' ? item.category : item.provider.category}
+            </div>
           </div>
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#4c1d95', background: '#f5f3ff', padding: '6px 10px', borderRadius: '12px' }}>
           <ShieldCheck size={18} />
-          <span style={{ fontSize: '16px', fontWeight: 700 }}>{item.score}</span>
+          <span style={{ fontSize: '16px', fontWeight: 700 }}>
+            {item.score || (typeof item.provider !== 'string' ? item.provider.rating : '')}
+          </span>
         </div>
       </div>
 
       {/* Recommenders Stack */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#f8fafc', padding: '12px', borderRadius: '12px' }}>
         <div style={{ display: 'flex' }}>
-          {item.recommenders.map((rec, i) => (
+          {item.recommenders && item.recommenders.map((rec: any, i: number) => (
             <img 
               key={i} 
               src={rec.image} 
@@ -246,27 +257,41 @@ function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved:
       </div>
 
       {/* Tags */}
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        {item.tags.map((tag) => (
-          <span key={tag} style={{
-            display: 'flex', alignItems: 'center', gap: '4px',
-            background: '#f8fafc', color: '#334155',
-            padding: '6px 12px', borderRadius: '8px',
-            fontSize: '12px', fontWeight: 600,
-          }}>
-            <Check size={14} color="#7e22ce" /> {tag}
-          </span>
-        ))}
-      </div>
+      {item.tags && item.tags.length > 0 && (
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          {item.tags.map((tag: string) => (
+            <span key={tag} style={{
+              display: 'flex', alignItems: 'center', gap: '4px',
+              background: '#f8fafc', color: '#334155',
+              padding: '6px 12px', borderRadius: '8px',
+              fontSize: '12px', fontWeight: 600,
+            }}>
+              <Check size={14} color="#7e22ce" /> {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Review Quote */}
-      <p style={{
-        fontSize: '15px', color: '#334155',
-        lineHeight: 1.6, margin: 0,
-        fontStyle: 'italic'
-      }}>
-        {item.review}
-      </p>
+      {item.review && (
+        <p style={{
+          fontSize: '15px', color: '#334155',
+          lineHeight: 1.6, margin: 0,
+          fontStyle: 'italic'
+        }}>
+          {item.review}
+        </p>
+      )}
+      
+      {item.content && (
+        <p style={{
+          fontSize: '15px', color: '#334155',
+          lineHeight: 1.6, margin: 0,
+          fontStyle: 'italic'
+        }}>
+          "{item.content}"
+        </p>
+      )}
 
       {/* Footer */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid #f1f5f9' }}>
