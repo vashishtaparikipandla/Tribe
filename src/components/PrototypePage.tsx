@@ -7,6 +7,8 @@ import AddRecommendationScreen from '@/sections/prototype/AddRecommendation';
 import MyTribeScreen from '@/sections/prototype/MyTribe';
 import SearchScreen from '@/sections/prototype/Search';
 import UserProfileScreen from '@/sections/prototype/UserProfile';
+import ProviderPassportScreen from '@/sections/prototype/ProviderPassport';
+import ConsensusRequestScreen from '@/sections/prototype/ConsensusRequest';
 import { Home, Search as SearchIcon, Users, Plus, User } from 'lucide-react'; // Removed Tag for Deals
 
 export type Screen =
@@ -17,7 +19,9 @@ export type Screen =
   | 'provider-profile'
   | 'add-recommendation'
   | 'my-tribe'
-  | 'user-profile';
+  | 'user-profile'
+  | 'provider-passport'
+  | 'consensus-request';
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('auth');
@@ -51,11 +55,15 @@ export function PrototypePage() {
         return <MyTribeScreen />;
       case 'user-profile':
         return <UserProfileScreen />;
+      case 'provider-passport':
+        return <ProviderPassportScreen onNavigate={setScreen} />;
+      case 'consensus-request':
+        return <ConsensusRequestScreen onNavigate={setScreen} />;
     }
   };
 
   // Determine if current screen has a dark header (so status bar text should be white)
-  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile'].includes(screen);
+  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport'].includes(screen);
 
   return (
     <div className="prototype-container">
@@ -110,7 +118,7 @@ export function PrototypePage() {
             </div>
 
             {/* Bottom Nav */}
-            {showShell && screen !== 'provider-profile' && screen !== 'add-recommendation' && (
+            {showShell && !['provider-profile', 'add-recommendation', 'provider-passport', 'consensus-request'].includes(screen) && (
               <BottomNav activeTab={activeTab} onTabChange={handleTabChange} onAdd={() => setScreen('add-recommendation')} />
             )}
           </div>

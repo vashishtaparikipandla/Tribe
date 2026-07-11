@@ -5,8 +5,8 @@ import { Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethosco
 const categories = [
   { label: 'Doctors', subtitle: '124 trusted nearby', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop' },
   { label: 'Plumbers', subtitle: '85 trusted nearby', image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=400&auto=format&fit=crop' },
-  { label: 'Electricians', subtitle: '42 trusted nearby', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=400&auto=format&fit=crop' },
-  { label: 'Tutors', subtitle: '190 trusted nearby', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop' },
+  { label: 'Electricians', subtitle: '42 trusted nearby', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=400&auto=format&fit=crop', sponsored: true },
+  { label: 'Tutors', subtitle: '190 trusted nearby', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=400&auto=format&fit=crop', sponsored: true },
   { label: 'Mechanics', subtitle: '63 trusted nearby', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=400&auto=format&fit=crop' },
 ];
 
@@ -129,8 +129,13 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
               transition: 'all 0.2s ease',
               boxShadow: activeCategory === cat.label ? '0 8px 20px rgba(126, 34, 206, 0.15)' : '0 4px 12px rgba(0,0,0,0.03)',
             }}>
-              <div style={{ width: '100%', height: '100px', background: '#f1f5f9' }}>
+              <div style={{ width: '100%', height: '100px', background: '#f1f5f9', position: 'relative' }}>
                 <img src={cat.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {cat.sponsored && (
+                  <div style={{ position: 'absolute', top: '8px', right: '8px', background: 'rgba(0,0,0,0.6)', color: '#ffffff', padding: '4px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', backdropFilter: 'blur(4px)' }}>
+                    Sponsored
+                  </div>
+                )}
               </div>
               <div style={{ padding: '16px', textAlign: 'left' }}>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>{cat.label}</div>
@@ -142,9 +147,14 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
       </div>
 
       <div style={{ padding: '0 20px 24px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px', letterSpacing: '-0.5px' }}>
-          Discover from your Tribe
-        </h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '16px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0, letterSpacing: '-0.5px' }}>
+            Discover from your Tribe
+          </h3>
+          <button onClick={() => onNavigate('consensus-request')} style={{ background: '#f8fafc', color: '#6b21a8', border: '1px solid #e9d5ff', padding: '6px 12px', borderRadius: '16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+            Ask My Tribe
+          </button>
+        </div>
 
         {feed.length === 0 ? (
           <div className="animate-slide-up-fade delay-300" style={{
