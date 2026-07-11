@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { ArrowLeft, QrCode, Search, DollarSign, Zap, Star, Clock, CheckCircle } from 'lucide-react';
+import { ArrowLeft, QrCode, Search, DollarSign, Zap, Star, Clock, CheckCircle, UserPlus } from 'lucide-react';
 
 const steps = ['Method', 'Ratings', 'Review'];
 
@@ -94,33 +94,54 @@ export default function AddRecommendationScreen({ onNavigate }: { onNavigate: (s
                 onClick={() => setIsScanning(true)}
                 style={{
                   background: 'linear-gradient(135deg, #4c1d95, #3b0764)', color: '#ffffff',
-                  borderRadius: '24px', padding: '32px',
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px',
+                  borderRadius: '24px', padding: '24px',
+                  display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px',
                   border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(76, 29, 149, 0.2)'
                 }}
               >
-                <div style={{ background: 'rgba(255,255,255,0.1)', padding: '16px', borderRadius: '20px' }}>
-                  <QrCode size={48} color="#c084fc" />
+                <div style={{ background: 'rgba(255,255,255,0.1)', padding: '16px', borderRadius: '20px', flexShrink: 0 }}>
+                  <QrCode size={32} color="#c084fc" />
                 </div>
-                <div style={{ fontSize: '20px', fontWeight: 700 }}>Scan Provider QR</div>
-                <div style={{ fontSize: '14px', color: '#e9d5ff', fontWeight: 500 }}>Fastest way to review. The provider can show you their code.</div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '18px', fontWeight: 700, marginBottom: '4px' }}>Scan Provider QR</div>
+                  <div style={{ fontSize: '13px', color: '#e9d5ff', fontWeight: 500 }}>Fastest way to review. The provider can show you their code.</div>
+                </div>
               </button>
-
-              <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: '14px', margin: '4px 0', fontWeight: 600, textTransform: 'uppercase' }}>or</div>
 
               <button 
                 onClick={() => setStep(1)}
                 style={{
                   background: '#ffffff', color: '#0f172a',
-                  borderRadius: '24px', padding: '24px',
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px',
+                  borderRadius: '24px', padding: '20px',
+                  display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px',
                   border: '1px solid #e2e8f0', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
                 }}
               >
-                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '20px' }}>
-                  <Search size={32} color="#64748b" />
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '20px', flexShrink: 0 }}>
+                  <Search size={28} color="#64748b" />
                 </div>
-                <div style={{ fontSize: '18px', fontWeight: 700 }}>Search Manually</div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>Rate Existing Provider</div>
+                  <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>Search for someone already on Tribe.</div>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => setStep(1)} // In a real app this would go to a different flow
+                style={{
+                  background: '#ffffff', color: '#0f172a',
+                  borderRadius: '24px', padding: '20px',
+                  display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '20px',
+                  border: '1px solid #e2e8f0', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.02)'
+                }}
+              >
+                <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '20px', flexShrink: 0 }}>
+                  <UserPlus size={28} color="#64748b" />
+                </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '16px', fontWeight: 700, marginBottom: '4px' }}>Onboard New Provider</div>
+                  <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>Send an invite to bring them onto Tribe.</div>
+                </div>
               </button>
             </div>
           </div>

@@ -7,6 +7,7 @@ export default function AuthScreen({ onNavigate }: { onNavigate: (s: Screen) => 
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [profile, setProfile] = useState({ name: '', city: '' });
+  const [agreed, setAgreed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const simulateLoading = (nextStep: 'phone' | 'otp' | 'profile' | 'done') => {
@@ -86,15 +87,28 @@ export default function AuthScreen({ onNavigate }: { onNavigate: (s: Screen) => 
               />
             </div>
 
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: 'auto', marginBottom: '16px' }}>
+              <input 
+                type="checkbox" 
+                id="terms" 
+                checked={agreed} 
+                onChange={e => setAgreed(e.target.checked)} 
+                style={{ width: '20px', height: '20px', accentColor: '#6b21a8', cursor: 'pointer' }}
+              />
+              <label htmlFor="terms" style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.4, cursor: 'pointer' }}>
+                I agree to the <span style={{ color: '#0f172a', fontWeight: 600 }}>Terms & Conditions</span> and <span style={{ color: '#0f172a', fontWeight: 600 }}>Privacy Policy</span>.
+              </label>
+            </div>
+
             <button 
               onClick={() => simulateLoading('otp')}
-              disabled={phone.length < 10 || isLoading}
+              disabled={phone.length < 10 || !agreed || isLoading}
               style={{
-                marginTop: 'auto', width: '100%', padding: '18px',
-                background: phone.length >= 10 ? 'linear-gradient(135deg, #6b21a8, #4c1d95)' : '#e2e8f0',
-                color: phone.length >= 10 ? '#ffffff' : '#94a3b8',
+                width: '100%', padding: '18px',
+                background: phone.length >= 10 && agreed ? 'linear-gradient(135deg, #6b21a8, #4c1d95)' : '#e2e8f0',
+                color: phone.length >= 10 && agreed ? '#ffffff' : '#94a3b8',
                 border: 'none', borderRadius: '32px', fontSize: '16px', fontWeight: 700,
-                cursor: phone.length >= 10 ? 'pointer' : 'not-allowed',
+                cursor: phone.length >= 10 && agreed ? 'pointer' : 'not-allowed',
                 display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px'
               }}
             >

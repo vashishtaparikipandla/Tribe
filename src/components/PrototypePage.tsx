@@ -7,7 +7,7 @@ import AddRecommendationScreen from '@/sections/prototype/AddRecommendation';
 import MyTribeScreen from '@/sections/prototype/MyTribe';
 import SearchScreen from '@/sections/prototype/Search';
 import UserProfileScreen from '@/sections/prototype/UserProfile';
-import { Home, Search as SearchIcon, Users, Plus } from 'lucide-react'; // Removed Tag for Deals
+import { Home, Search as SearchIcon, Users, Plus, User } from 'lucide-react'; // Removed Tag for Deals
 
 export type Screen =
   | 'auth'
@@ -21,15 +21,16 @@ export type Screen =
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('auth');
-  const [activeTab, setActiveTab] = useState<'home' | 'search' | 'tribe'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'search' | 'tribe' | 'profile'>('home');
 
   const showShell = screen !== 'auth' && screen !== 'onboarding';
 
-  const handleTabChange = (tab: 'home' | 'search' | 'tribe') => {
+  const handleTabChange = (tab: 'home' | 'search' | 'tribe' | 'profile') => {
     setActiveTab(tab);
     if (tab === 'home') setScreen('home');
     if (tab === 'search') setScreen('search');
     if (tab === 'tribe') setScreen('my-tribe');
+    if (tab === 'profile') setScreen('user-profile');
   };
 
   const renderScreen = () => {
@@ -57,45 +58,10 @@ export function PrototypePage() {
   const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile'].includes(screen);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#f8fafc',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-        padding: '24px',
-      }}
-    >
+    <div className="prototype-container">
       {/* Device Shell */}
-      <div
-        className="animate-slide-up-fade"
-        style={{
-          width: '412px',
-          height: '860px',
-          transform: 'scale(0.68)',
-          transformOrigin: 'center center',
-          position: 'relative',
-          flexShrink: 0,
-        }}
-      >
-        {/* Phone frame */}
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            background: '#ffffff',
-            borderRadius: '44px',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-            border: '12px solid #000000', // Dark bezel for realistic look
-          }}
-        >
-          {/* Status Bar */}
+      <div className="animate-slide-up-fade device-shell">
+        {/* Status Bar */}
           <div
             style={{
               height: '44px',
@@ -150,13 +116,12 @@ export function PrototypePage() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
 function BottomNav({ activeTab, onTabChange, onAdd }: {
-  activeTab: 'home' | 'search' | 'tribe';
-  onTabChange: (tab: 'home' | 'search' | 'tribe') => void;
+  activeTab: 'home' | 'search' | 'tribe' | 'profile';
+  onTabChange: (tab: 'home' | 'search' | 'tribe' | 'profile') => void;
   onAdd: () => void;
 }) {
   return (
@@ -202,6 +167,7 @@ function BottomNav({ activeTab, onTabChange, onAdd }: {
       </button>
 
       <NavTab icon={Users} label="My Tribe" active={activeTab === 'tribe'} onClick={() => onTabChange('tribe')} />
+      <NavTab icon={User} label="Profile" active={activeTab === 'profile'} onClick={() => onTabChange('profile')} />
     </div>
   );
 }

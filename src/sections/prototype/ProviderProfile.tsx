@@ -10,9 +10,9 @@ const metrics = [
 ];
 
 const recommenders = [
-  { name: 'Mahendra', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Colleague', review: 'Superb. My go-to for 4 years.' },
-  { name: 'Megha', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Neighbour', review: 'Fixed the issue on same day.' },
-  { name: 'Ravi', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Family', review: 'Fair prices, solid work.' },
+  { name: 'Mahendra', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact', review: 'Superb. My go-to for 4 years.' },
+  { name: 'Megha', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact', review: 'Fixed the issue on same day.' },
+  { name: 'Ravi', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80', relation: 'Your Contact', review: 'Fair prices, solid work.' },
 ];
 
 export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
