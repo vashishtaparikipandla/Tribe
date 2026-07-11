@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { ArrowLeft, MapPin, Phone, ShieldCheck, Info, UserCheck, Mic, Calendar, MessageCircle } from 'lucide-react';
+import { ArrowLeft, MapPin, Phone, ShieldCheck, Info, UserCheck, Mic, Calendar, MessageCircle, Bookmark } from 'lucide-react';
 
 const METRIC_DEFINITIONS = {
   'Budget Friendly': 'Did the price match what was quoted, and was it fair for the work done?',
@@ -60,14 +60,24 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
           boxShadow: '0 4px 20px rgba(76, 29, 149, 0.15)',
           position: 'relative', zIndex: 2
         }}>
-          <button onClick={() => onNavigate('home')} style={{
-            background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '50%',
-            width: '36px', height: '36px', color: '#ffffff', padding: 0,
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px',
-            backdropFilter: 'blur(4px)'
-          }}>
-            <ArrowLeft size={20} />
-          </button>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <button onClick={() => onNavigate('home')} style={{
+              background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '50%',
+              width: '36px', height: '36px', color: '#ffffff', padding: 0,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              backdropFilter: 'blur(4px)'
+            }}>
+              <ArrowLeft size={20} />
+            </button>
+            <button style={{
+              background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '50%',
+              width: '36px', height: '36px', color: '#ffffff', padding: 0,
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              backdropFilter: 'blur(4px)'
+            }}>
+              <Bookmark size={20} />
+            </button>
+          </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>

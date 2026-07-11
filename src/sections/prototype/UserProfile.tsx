@@ -1,8 +1,9 @@
 
 
-import { Settings, Shield, Bell, HelpCircle, ChevronRight, Share, Activity, Award } from 'lucide-react';
+import type { Screen } from '@/components/PrototypePage';
+import { Settings, Shield, Bell, HelpCircle, ChevronRight, Share, Activity, Award, Bookmark } from 'lucide-react';
 
-export default function UserProfileScreen() {
+export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
   return (
     <div style={{ background: '#f8fafc', minHeight: '100%', paddingBottom: '32px' }}>
       {/* Header Band */}
@@ -48,6 +49,27 @@ export default function UserProfileScreen() {
           <div style={{ fontSize: '28px', fontWeight: 700, color: '#0f172a' }}>34</div>
           <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Helped Others</div>
         </div>
+      </div>
+
+      {/* Saved Providers Entry Point */}
+      <div className="animate-slide-up-fade delay-100" style={{ padding: '24px 24px 0' }}>
+        <button onClick={() => onNavigate('saved-providers')} style={{
+          width: '100%', background: '#ffffff', borderRadius: '20px', padding: '20px',
+          border: '1px solid #e9d5ff', boxShadow: '0 8px 24px rgba(76, 29, 149, 0.05)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer',
+          textAlign: 'left'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ background: '#faf5ff', width: '48px', height: '48px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Bookmark size={24} color="#7e22ce" fill="#7e22ce" />
+            </div>
+            <div>
+              <div style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>Saved Providers</div>
+              <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>Your private bookmarks</div>
+            </div>
+          </div>
+          <ChevronRight size={24} color="#cbd5e1" />
+        </button>
       </div>
 
       {/* Settings List */}
