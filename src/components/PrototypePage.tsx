@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import OnboardingFlow from '@/sections/prototype/Onboarding';
 import HomeScreen from '@/sections/prototype/Home';
 import ProviderProfileScreen from '@/sections/prototype/ProviderProfile';
@@ -6,7 +6,7 @@ import AddRecommendationScreen from '@/sections/prototype/AddRecommendation';
 import MyTribeScreen from '@/sections/prototype/MyTribe';
 import SearchScreen from '@/sections/prototype/Search';
 import UserProfileScreen from '@/sections/prototype/UserProfile';
-import { Home, Search as SearchIcon, Users, Tag, Plus, Menu } from 'lucide-react';
+import { Home, Search as SearchIcon, Users, Plus } from 'lucide-react'; // Removed Tag for Deals
 
 export type Screen =
   | 'onboarding'
@@ -19,16 +19,15 @@ export type Screen =
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('onboarding');
-  const [activeTab, setActiveTab] = useState<'home' | 'search' | 'tribe' | 'deals'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'search' | 'tribe'>('home');
 
   const showShell = screen !== 'onboarding';
 
-  const handleTabChange = (tab: 'home' | 'search' | 'tribe' | 'deals') => {
+  const handleTabChange = (tab: 'home' | 'search' | 'tribe') => {
     setActiveTab(tab);
     if (tab === 'home') setScreen('home');
     if (tab === 'search') setScreen('search');
     if (tab === 'tribe') setScreen('my-tribe');
-    if (tab === 'deals') setScreen('home'); // Placeholder
   };
 
   const renderScreen = () => {
@@ -44,17 +43,20 @@ export function PrototypePage() {
       case 'add-recommendation':
         return <AddRecommendationScreen onNavigate={setScreen} />;
       case 'my-tribe':
-        return <MyTribeScreen onNavigate={setScreen} />;
+        return <MyTribeScreen />;
       case 'user-profile':
-        return <UserProfileScreen onNavigate={setScreen} />;
+        return <UserProfileScreen />;
     }
   };
+
+  // Determine if current screen has a dark header (so status bar text should be white)
+  const hasDarkHeader = ['home', 'search', 'provider-profile', 'my-tribe', 'user-profile'].includes(screen);
 
   return (
     <div
       style={{
         minHeight: '100vh',
-        background: '#f2f2f2', // Card Border color for the presentation background
+        background: '#f8fafc',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -64,11 +66,12 @@ export function PrototypePage() {
     >
       {/* Device Shell */}
       <div
+        className="animate-slide-up-fade"
         style={{
           width: '412px',
           height: '860px',
-          transform: 'scale(0.82)',
-          transformOrigin: 'top center',
+          transform: 'scale(0.85)',
+          transformOrigin: 'center center',
           position: 'relative',
           flexShrink: 0,
         }}
@@ -80,12 +83,12 @@ export function PrototypePage() {
             height: '100%',
             background: '#ffffff',
             borderRadius: '44px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05)',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            border: '8px solid #17171c', // Dark bezel for realistic look
+            border: '12px solid #000000', // Dark bezel for realistic look
           }}
         >
           {/* Status Bar */}
@@ -103,10 +106,11 @@ export function PrototypePage() {
               left: 0,
               right: 0,
               zIndex: 100,
+              pointerEvents: 'none',
             }}
           >
-            <span style={{ fontSize: '13px', fontWeight: 600, color: (screen === 'provider-profile' || screen === 'user-profile') ? '#ffffff' : '#17171c' }}>9:41</span>
-            <div style={{ display: 'flex', gap: '6px', alignItems: 'center', color: (screen === 'provider-profile' || screen === 'user-profile') ? '#ffffff' : '#17171c' }}>
+            <span style={{ fontSize: '14px', fontWeight: 600, color: hasDarkHeader ? '#ffffff' : '#17171c' }}>9:41</span>
+            <div style={{ display: 'flex', gap: '6px', alignItems: 'center', color: hasDarkHeader ? '#ffffff' : '#17171c' }}>
               <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
                 <rect x="0" y="3" width="3" height="9" rx="1" fill="currentColor" />
                 <rect x="4.5" y="2" width="3" height="10" rx="1" fill="currentColor" />
@@ -127,18 +131,9 @@ export function PrototypePage() {
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
+              background: '#f8fafc',
             }}
           >
-            {/* Top App Bar (shown only when not onboarding) */}
-            {showShell && screen !== 'provider-profile' && screen !== 'add-recommendation' && screen !== 'user-profile' && (
-              <TopBar screen={screen} onNavigate={setScreen} />
-            )}
-            
-            {/* Pad top for screens without topbar but with status bar */}
-            {(screen === 'provider-profile' || screen === 'add-recommendation' || screen === 'user-profile') && (
-              <div style={{ height: '44px', background: screen === 'add-recommendation' ? '#ffffff' : '#003c33', flexShrink: 0 }} />
-            )}
-
             {/* Screen Content */}
             <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
               {renderScreen()}
@@ -155,88 +150,54 @@ export function PrototypePage() {
   );
 }
 
-function TopBar({ screen, onNavigate }: { screen: Screen; onNavigate: (s: Screen) => void }) {
-  return (
-    <div
-      style={{
-        height: '64px',
-        background: '#ffffff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 20px',
-        flexShrink: 0,
-        zIndex: 10,
-        paddingTop: '44px', // Space for status bar
-      }}
-    >
-      <div>
-        <div style={{ fontSize: '24px', fontWeight: 800, color: '#17171c', letterSpacing: '-0.5px' }}>Tribe</div>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0', display: 'flex' }}>
-          <Menu size={24} color="#17171c" />
-        </button>
-        <button 
-          onClick={() => onNavigate('user-profile')}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0', display: 'flex' }}
-        >
-          <img 
-            src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-            alt="Profile"
-            style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
-          />
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function BottomNav({ activeTab, onTabChange, onAdd }: {
-  activeTab: 'home' | 'search' | 'tribe' | 'deals';
-  onTabChange: (tab: 'home' | 'search' | 'tribe' | 'deals') => void;
+  activeTab: 'home' | 'search' | 'tribe';
+  onTabChange: (tab: 'home' | 'search' | 'tribe') => void;
   onAdd: () => void;
 }) {
   return (
     <div
       style={{
-        height: '80px',
+        height: '84px',
         background: '#ffffff',
-        borderTop: '1px solid #e5e7eb',
+        borderTop: '1px solid #f1f5f9',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start', // Align to top because of padding bottom
         justifyContent: 'space-around',
-        padding: '0 8px',
+        padding: '12px 16px 24px 16px', // Extra bottom padding for home indicator
         flexShrink: 0,
         position: 'relative',
         zIndex: 10,
+        boxShadow: '0 -4px 16px rgba(0,0,0,0.03)'
       }}
     >
       <NavTab icon={Home} label="Discover" active={activeTab === 'home'} onClick={() => onTabChange('home')} />
       <NavTab icon={SearchIcon} label="Search" active={activeTab === 'search'} onClick={() => onTabChange('search')} />
 
-      {/* Primary Action Button (Cohere style pill) */}
+      {/* Primary Action Button (Dark Purple) */}
       <button
         onClick={onAdd}
         style={{
-          height: '48px',
-          padding: '0 24px',
-          background: '#17171c',
+          width: '56px',
+          height: '56px',
+          background: 'linear-gradient(135deg, #6b21a8, #4c1d95)', // Dark purple gradient
           color: '#ffffff',
-          borderRadius: '32px',
+          borderRadius: '28px',
           border: 'none',
           cursor: 'pointer',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-          fontWeight: 500, fontSize: '14px',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 8px 16px rgba(76, 29, 149, 0.25)',
+          transform: 'translateY(-20px)',
+          transition: 'transform 0.2s',
         }}
+        onMouseDown={e => e.currentTarget.style.transform = 'translateY(-16px) scale(0.95)'}
+        onMouseUp={e => e.currentTarget.style.transform = 'translateY(-20px) scale(1)'}
+        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(-20px) scale(1)'}
       >
-        <Plus size={20} />
-        Add
+        <Plus size={28} />
       </button>
 
       <NavTab icon={Users} label="My Tribe" active={activeTab === 'tribe'} onClick={() => onTabChange('tribe')} />
-      <NavTab icon={Tag} label="Deals" active={activeTab === 'deals'} onClick={() => onTabChange('deals')} />
     </div>
   );
 }
@@ -248,14 +209,15 @@ function NavTab({ icon: Icon, label, active, onClick }: { icon: any; label: stri
       style={{
         background: 'none', border: 'none', cursor: 'pointer',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
-        padding: '8px',
+        padding: '4px',
         flex: 1,
+        transition: 'color 0.2s'
       }}
     >
-      <Icon size={24} color={active ? '#17171c' : '#93939f'} strokeWidth={active ? 2.5 : 2} />
+      <Icon size={24} color={active ? '#4c1d95' : '#94a3b8'} strokeWidth={active ? 2.5 : 2} />
       <span style={{
-        fontSize: '11px', fontWeight: active ? 600 : 400,
-        color: active ? '#17171c' : '#93939f',
+        fontSize: '11px', fontWeight: active ? 600 : 500,
+        color: active ? '#4c1d95' : '#94a3b8',
       }}>{label}</span>
     </button>
   );

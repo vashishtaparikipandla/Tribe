@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Target, Search, Users, Phone } from 'lucide-react';
 
 const slides = [
@@ -52,50 +52,53 @@ export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
       flexDirection: 'column',
       background: '#ffffff',
     }}>
-      {/* Visual Header Area */}
+      {/* Visual Header Area (Dark Purple Gradient) */}
       <div style={{
         flex: 1,
-        background: '#003c33', // Deep Green
+        background: 'linear-gradient(135deg, #4c1d95, #3b0764)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottomLeftRadius: '32px',
+        borderBottomRightRadius: '32px',
       }}>
-        {/* Abstract shapes for editorial feel */}
-        <div style={{
-          position: 'absolute', width: '200px', height: '200px',
-          border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%',
-          top: '-50px', right: '-50px'
-        }} />
+        {/* Abstract shapes */}
         <div style={{
           position: 'absolute', width: '300px', height: '300px',
-          border: '1px solid rgba(255,255,255,0.05)', borderRadius: '50%',
-          bottom: '-100px', left: '-100px'
+          background: 'radial-gradient(circle, rgba(192,132,252,0.15) 0%, rgba(255,255,255,0) 70%)',
+          top: '-50px', right: '-50px', borderRadius: '50%'
+        }} />
+        <div style={{
+          position: 'absolute', width: '400px', height: '400px',
+          background: 'radial-gradient(circle, rgba(168,85,247,0.1) 0%, rgba(255,255,255,0) 70%)',
+          bottom: '-100px', left: '-100px', borderRadius: '50%'
         }} />
 
-        <div style={{
+        <div key={currentSlide} className="animate-slide-up-fade" style={{
           background: 'rgba(255,255,255,0.1)',
-          padding: '24px', borderRadius: '24px',
-          backdropFilter: 'blur(10px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
+          padding: '32px', borderRadius: '32px',
+          backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
         }}>
-          <slide.icon size={64} color="#ffffff" strokeWidth={1.5} />
+          <slide.icon size={72} color="#ffffff" strokeWidth={1.5} />
         </div>
       </div>
 
       {/* Content Area */}
       <div style={{
         background: '#ffffff',
-        padding: '32px 24px',
+        padding: '40px 32px 32px',
         display: 'flex',
         flexDirection: 'column',
         gap: '24px',
-        minHeight: '45%' // Ensure enough space for content
+        minHeight: '45%', // Ensure enough space for content
       }}>
-        <div>
+        <div key={`text-${currentSlide}`} className="animate-slide-up-fade delay-100">
           <div style={{
-            fontSize: '11px', fontWeight: 700, color: '#003c33',
+            fontSize: '12px', fontWeight: 800, color: '#7e22ce',
             letterSpacing: '1px', textTransform: 'uppercase',
             marginBottom: '16px'
           }}>
@@ -104,50 +107,54 @@ export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
           
           <h1 style={{
             fontSize: '36px',
-            fontWeight: 400,
+            fontWeight: 800,
             lineHeight: 1.1,
-            color: '#17171c',
+            color: '#0f172a',
             margin: '0 0 16px',
             whiteSpace: 'pre-line',
             letterSpacing: '-1px',
-            fontFamily: "'Space Grotesk', sans-serif"
           }}>
             {slide.headline}
           </h1>
           
           <p style={{
             fontSize: '16px',
-            color: '#616161',
-            lineHeight: 1.5,
-            margin: 0
+            color: '#64748b',
+            lineHeight: 1.6,
+            margin: 0,
+            fontWeight: 500
           }}>
             {slide.subhead}
           </p>
         </div>
 
         {/* Indicators and Button */}
-        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
           <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
             {slides.map((s, i) => (
               <div key={s.id} style={{
-                height: '4px',
-                width: i === currentSlide ? '24px' : '8px',
-                background: i === currentSlide ? '#17171c' : '#e5e7eb',
-                borderRadius: '4px',
-                transition: 'all 0.3s ease'
+                height: '6px',
+                width: i === currentSlide ? '32px' : '8px',
+                background: i === currentSlide ? '#7e22ce' : '#e2e8f0',
+                borderRadius: '6px',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
               }} />
             ))}
           </div>
 
           <button onClick={next} style={{
-            background: '#17171c', color: '#ffffff',
-            padding: '16px 32px', borderRadius: '32px',
-            border: 'none', fontSize: '16px', fontWeight: 500,
+            background: 'linear-gradient(135deg, #6b21a8, #4c1d95)', color: '#ffffff',
+            padding: '18px 32px', borderRadius: '32px',
+            border: 'none', fontSize: '16px', fontWeight: 600,
             cursor: 'pointer', fontFamily: 'inherit',
             display: 'flex', justifyContent: 'center', alignItems: 'center',
             width: '100%',
+            boxShadow: '0 8px 16px rgba(76, 29, 149, 0.25)',
             transition: 'transform 0.1s'
-          }}>
+          }}
+          onMouseDown={e => e.currentTarget.style.transform = 'scale(0.98)'}
+          onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
             {currentSlide === slides.length - 1 ? 'Connect Contacts' : 'Continue'}
           </button>
         </div>

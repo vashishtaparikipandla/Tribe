@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Search as SearchIcon, Check, Stethoscope, Wrench, Zap, GraduationCap, Car, HardHat, Scissors, Leaf, ShieldCheck, MapPin } from 'lucide-react';
+import { Search as SearchIcon, Check, Stethoscope, Wrench, Zap, GraduationCap, Car, ShieldCheck } from 'lucide-react';
 
 const categories = [
   { label: 'Doctors', icon: Stethoscope },
@@ -65,42 +65,53 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
   const toggle = (id: number) => setSavedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   return (
-    <div style={{ background: '#ffffff', minHeight: '100%' }}>
-      {/* Welcome Banner (Cohere Deep Green) */}
+    <div style={{ background: '#f8fafc', minHeight: '100%' }}>
+      {/* Welcome Banner (Dark Purple Gradient) */}
       <div style={{
-        background: '#003c33',
-        padding: '20px 20px 32px',
+        background: 'linear-gradient(135deg, #4c1d95, #3b0764)',
+        padding: '64px 20px 32px', // 44px + 20px for status bar
+        borderBottomLeftRadius: '24px',
+        borderBottomRightRadius: '24px',
+        boxShadow: '0 4px 20px rgba(76, 29, 149, 0.15)',
+        position: 'relative',
+        zIndex: 2,
       }}>
-        <p style={{ color: '#edfce9', fontSize: '14px', margin: '0 0 4px', fontWeight: 400 }}>Good evening,</p>
-        <h2 style={{ color: '#ffffff', fontSize: '28px', fontWeight: 700, margin: '0 0 24px', letterSpacing: '-0.5px' }}>
-          Vashishta.
-        </h2>
-        
-        {/* Search bar */}
-        <div style={{
-          background: '#ffffff',
-          borderRadius: '8px',
-          padding: '14px 16px',
-          display: 'flex', alignItems: 'center', gap: '10px',
-          cursor: 'text'
-        }} onClick={() => onNavigate('search')}>
-          <SearchIcon size={20} color="#75758a" />
-          <span style={{ color: '#75758a', fontSize: '16px', fontFamily: 'Inter, sans-serif' }}>Search plumber, doctor, tutor...</span>
+        <div className="animate-slide-up-fade delay-100">
+          <p style={{ color: '#e9d5ff', fontSize: '15px', margin: '0 0 4px', fontWeight: 500 }}>Good evening,</p>
+          <h2 style={{ color: '#ffffff', fontSize: '32px', fontWeight: 700, margin: '0 0 24px', letterSpacing: '-0.5px' }}>
+            Vashishta.
+          </h2>
+          
+          {/* Search bar */}
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '16px',
+            padding: '16px',
+            display: 'flex', alignItems: 'center', gap: '12px',
+            cursor: 'text',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+          }} onClick={() => onNavigate('search')}>
+            <SearchIcon size={20} color="#6b21a8" />
+            <span style={{ color: '#94a3b8', fontSize: '16px', fontWeight: 500 }}>Search plumber, doctor...</span>
+          </div>
         </div>
       </div>
 
       {/* Category Pills */}
-      <div style={{ padding: '24px 0 12px' }}>
-        <div style={{ display: 'flex', gap: '8px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+      <div style={{ padding: '24px 0 12px' }} className="animate-slide-up-fade delay-200">
+        <div style={{ display: 'flex', gap: '12px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '8px' }}>
           {categories.map((cat) => (
             <button key={cat.label} onClick={() => setActiveCategory(cat.label === activeCategory ? null : cat.label)} style={{
-              background: activeCategory === cat.label ? '#17171c' : '#eeece7',
-              color: activeCategory === cat.label ? '#ffffff' : '#212121',
-              border: 'none', borderRadius: '32px',
-              padding: '8px 16px', whiteSpace: 'nowrap',
-              fontSize: '14px', fontWeight: 500, cursor: 'pointer',
-              display: 'flex', alignItems: 'center', gap: '6px',
+              background: activeCategory === cat.label ? '#4c1d95' : '#ffffff',
+              color: activeCategory === cat.label ? '#ffffff' : '#475569',
+              border: '1px solid',
+              borderColor: activeCategory === cat.label ? '#4c1d95' : '#e2e8f0',
+              borderRadius: '32px',
+              padding: '10px 16px', whiteSpace: 'nowrap',
+              fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '8px',
               transition: 'all 0.2s ease',
+              boxShadow: activeCategory === cat.label ? '0 4px 12px rgba(76, 29, 149, 0.2)' : '0 2px 4px rgba(0,0,0,0.02)',
             }}>
               <cat.icon size={16} />
               {cat.label}
@@ -110,15 +121,17 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
       </div>
 
       {/* Feed */}
-      <div style={{ padding: '12px 20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '14px', fontWeight: 600, color: '#212121', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+      <div style={{ padding: '12px 20px 24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} className="animate-slide-up-fade delay-300">
+          <span style={{ fontSize: '15px', fontWeight: 700, color: '#1e293b', letterSpacing: '0.2px' }}>
             Recommended by your Tribe
           </span>
         </div>
 
-        {feed.map((item) => (
-          <FeedCard key={item.id} item={item} saved={savedIds.includes(item.id)} onSave={() => toggle(item.id)} onTap={() => onNavigate('provider-profile')} />
+        {feed.map((item, i) => (
+          <div key={item.id} className={`animate-slide-up-fade delay-${(i + 3) * 100 > 500 ? 500 : (i + 3) * 100}`}>
+            <FeedCard item={item} saved={savedIds.includes(item.id)} onSave={() => toggle(item.id)} onTap={() => onNavigate('provider-profile')} />
+          </div>
         ))}
       </div>
     </div>
@@ -132,38 +145,43 @@ function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved:
     <div
       style={{
         background: '#ffffff',
-        borderRadius: '16px',
+        borderRadius: '20px',
         padding: '24px',
-        border: '1px solid #e5e7eb',
+        border: '1px solid #f1f5f9',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
         cursor: 'pointer',
-        display: 'flex', flexDirection: 'column', gap: '16px'
+        display: 'flex', flexDirection: 'column', gap: '16px',
+        transition: 'transform 0.2s, box-shadow 0.2s',
       }}
       onClick={onTap}
+      onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.98)'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)'; }}
+      onMouseUp={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'; }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)'; }}
     >
       {/* Provider Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
           <div style={{
-            width: '48px', height: '48px', borderRadius: '8px',
-            background: '#f1f5ff', color: '#1863dc',
+            width: '52px', height: '52px', borderRadius: '16px',
+            background: '#faf5ff', color: '#7e22ce',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             <Icon size={24} />
           </div>
           <div>
-            <div style={{ fontSize: '18px', fontWeight: 700, color: '#17171c', letterSpacing: '-0.2px' }}>{item.provider}</div>
-            <div style={{ fontSize: '14px', color: '#616161', marginTop: '2px' }}>{item.category}</div>
+            <div style={{ fontSize: '18px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.2px' }}>{item.provider}</div>
+            <div style={{ fontSize: '14px', color: '#64748b', marginTop: '2px', fontWeight: 500 }}>{item.category}</div>
           </div>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#003c33' }}>
-          <ShieldCheck size={20} />
-          <span style={{ fontSize: '18px', fontWeight: 700 }}>{item.score}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#4c1d95', background: '#f5f3ff', padding: '6px 10px', borderRadius: '12px' }}>
+          <ShieldCheck size={18} />
+          <span style={{ fontSize: '16px', fontWeight: 700 }}>{item.score}</span>
         </div>
       </div>
 
       {/* Recommenders Stack */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#f8fafc', padding: '12px', borderRadius: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#f8fafc', padding: '12px', borderRadius: '12px' }}>
         <div style={{ display: 'flex' }}>
           {item.recommenders.map((rec, i) => (
             <img 
@@ -179,8 +197,8 @@ function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved:
             />
           ))}
         </div>
-        <div style={{ fontSize: '14px', color: '#212121' }}>
-          Recommended by <strong>{item.recommenders[0].name}</strong> 
+        <div style={{ fontSize: '13px', color: '#475569', fontWeight: 500 }}>
+          Recommended by <strong style={{ color: '#0f172a' }}>{item.recommenders[0].name}</strong> 
           {item.recommenders.length > 1 && ` and ${item.recommenders.length - 1} others`}
         </div>
       </div>
@@ -190,35 +208,35 @@ function FeedCard({ item, saved, onSave, onTap }: { item: typeof feed[0]; saved:
         {item.tags.map((tag) => (
           <span key={tag} style={{
             display: 'flex', alignItems: 'center', gap: '4px',
-            background: '#ffffff', color: '#212121',
-            border: '1px solid #d9d9dd',
-            padding: '4px 12px', borderRadius: '32px',
-            fontSize: '12px', fontWeight: 500,
+            background: '#f8fafc', color: '#334155',
+            padding: '6px 12px', borderRadius: '8px',
+            fontSize: '12px', fontWeight: 600,
           }}>
-            <Check size={12} color="#1863dc" /> {tag}
+            <Check size={14} color="#7e22ce" /> {tag}
           </span>
         ))}
       </div>
 
       {/* Review Quote */}
       <p style={{
-        fontSize: '16px', color: '#212121',
-        lineHeight: 1.5, margin: 0,
-        fontFamily: "'Space Grotesk', sans-serif"
+        fontSize: '15px', color: '#334155',
+        lineHeight: 1.6, margin: 0,
+        fontStyle: 'italic'
       }}>
         {item.review}
       </p>
 
       {/* Footer */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid #e5e7eb' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid #f1f5f9' }}>
         <button
           onClick={(e) => { e.stopPropagation(); onSave(); }}
           style={{
             background: 'transparent',
             border: 'none',
-            fontSize: '14px', fontWeight: 500, cursor: 'pointer',
-            color: saved ? '#1863dc' : '#616161',
-            display: 'flex', alignItems: 'center', gap: '6px'
+            fontSize: '14px', fontWeight: 600, cursor: 'pointer',
+            color: saved ? '#7e22ce' : '#64748b',
+            display: 'flex', alignItems: 'center', gap: '6px',
+            transition: 'color 0.2s'
           }}
         >
           {saved ? 'Saved to lists' : 'Save provider'}

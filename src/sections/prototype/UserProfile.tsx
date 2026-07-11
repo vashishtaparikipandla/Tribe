@@ -1,85 +1,91 @@
-import React from 'react';
-import type { Screen } from '@/components/PrototypePage';
+
+
 import { Settings, Shield, Bell, HelpCircle, ChevronRight, Share, Activity, Award } from 'lucide-react';
 
-export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
+export default function UserProfileScreen() {
   return (
-    <div style={{ background: '#ffffff', minHeight: '100%', paddingBottom: '32px' }}>
+    <div style={{ background: '#f8fafc', minHeight: '100%', paddingBottom: '32px' }}>
       {/* Header Band */}
       <div style={{
-        background: '#003c33', // Deep Enterprise Green
-        padding: '32px 24px',
+        background: 'linear-gradient(135deg, #4c1d95, #3b0764)',
+        padding: '64px 24px 48px', // Space for status bar + extra padding for overlap
         color: '#ffffff',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }} className="animate-slide-up-fade">
           <img 
             src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
             alt="Vashishta"
-            style={{ width: '72px', height: '72px', borderRadius: '50%', border: '2px solid #ffffff' }}
+            style={{ width: '80px', height: '80px', borderRadius: '50%', border: '3px solid rgba(255,255,255,0.2)' }}
           />
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 600, margin: '0 0 4px', letterSpacing: '-0.5px' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 6px', letterSpacing: '-0.5px' }}>
               Vashishta P.
             </h1>
-            <p style={{ fontSize: '14px', margin: 0, opacity: 0.8 }}>Joined Oct 2024</p>
+            <p style={{ fontSize: '15px', margin: 0, color: '#e9d5ff', fontWeight: 500 }}>Joined Oct 2024</p>
           </div>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div style={{ padding: '24px', display: 'flex', gap: '12px', marginTop: '-24px' }}>
+      <div className="animate-slide-up-fade delay-100" style={{ padding: '0 24px', display: 'flex', gap: '16px', marginTop: '-24px', position: 'relative', zIndex: 2 }}>
         <div style={{
-          flex: 1, background: '#ffffff', borderRadius: '16px', padding: '16px',
-          border: '1px solid #e5e7eb', boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+          flex: 1, background: '#ffffff', borderRadius: '20px', padding: '20px',
+          border: '1px solid #f1f5f9', boxShadow: '0 8px 24px rgba(0,0,0,0.05)'
         }}>
-          <Award size={20} color="#1863dc" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#17171c' }}>12</div>
-          <div style={{ fontSize: '12px', color: '#616161' }}>Recommendations</div>
+          <div style={{ background: '#faf5ff', width: '40px', height: '40px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
+            <Award size={20} color="#7e22ce" />
+          </div>
+          <div style={{ fontSize: '28px', fontWeight: 700, color: '#0f172a' }}>12</div>
+          <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Recommendations</div>
         </div>
         <div style={{
-          flex: 1, background: '#ffffff', borderRadius: '16px', padding: '16px',
-          border: '1px solid #e5e7eb', boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+          flex: 1, background: '#ffffff', borderRadius: '20px', padding: '20px',
+          border: '1px solid #f1f5f9', boxShadow: '0 8px 24px rgba(0,0,0,0.05)'
         }}>
-          <Activity size={20} color="#003c33" style={{ marginBottom: '8px' }} />
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#17171c' }}>34</div>
-          <div style={{ fontSize: '12px', color: '#616161' }}>Helped Others</div>
+          <div style={{ background: '#f5f3ff', width: '40px', height: '40px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
+            <Activity size={20} color="#6b21a8" />
+          </div>
+          <div style={{ fontSize: '28px', fontWeight: 700, color: '#0f172a' }}>34</div>
+          <div style={{ fontSize: '13px', color: '#64748b', fontWeight: 600 }}>Helped Others</div>
         </div>
       </div>
 
       {/* Settings List */}
-      <div style={{ padding: '0 24px' }}>
-        <h2 style={{ fontSize: '14px', fontWeight: 600, color: '#212121', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+      <div className="animate-slide-up-fade delay-200" style={{ padding: '32px 24px 0' }}>
+        <h2 style={{ fontSize: '13px', fontWeight: 700, color: '#64748b', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
           Account
         </h2>
         
-        <div style={{ borderTop: '1px solid #d9d9dd' }}>
+        <div style={{ background: '#ffffff', borderRadius: '20px', border: '1px solid #f1f5f9', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
           {[
             { icon: Shield, label: 'Privacy & Security' },
             { icon: Bell, label: 'Notifications' },
             { icon: Settings, label: 'Preferences' },
             { icon: Share, label: 'Invite Friends' },
             { icon: HelpCircle, label: 'Support & FAQ' },
-          ].map((item, i) => (
+          ].map((item, i, arr) => (
             <div key={i} style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '16px 0', borderBottom: '1px solid #d9d9dd', cursor: 'pointer'
+              padding: '16px 20px', borderBottom: i === arr.length - 1 ? 'none' : '1px solid #f1f5f9', cursor: 'pointer',
+              background: '#ffffff'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <item.icon size={20} color="#212121" />
-                <span style={{ fontSize: '16px', color: '#212121' }}>{item.label}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <item.icon size={20} color="#64748b" />
+                <span style={{ fontSize: '16px', color: '#0f172a', fontWeight: 500 }}>{item.label}</span>
               </div>
-              <ChevronRight size={20} color="#93939f" />
+              <ChevronRight size={20} color="#cbd5e1" />
             </div>
           ))}
         </div>
       </div>
 
       {/* Logout */}
-      <div style={{ padding: '32px 24px' }}>
+      <div className="animate-slide-up-fade delay-300" style={{ padding: '32px 24px' }}>
         <button style={{
-          width: '100%', padding: '14px',
-          background: 'transparent', border: '1px solid #e5e7eb', borderRadius: '32px',
-          color: '#b30000', fontSize: '14px', fontWeight: 500, cursor: 'pointer'
+          width: '100%', padding: '16px',
+          background: '#ffffff', border: '1px solid #fecaca', borderRadius: '32px',
+          color: '#ef4444', fontSize: '16px', fontWeight: 600, cursor: 'pointer',
+          boxShadow: '0 2px 4px rgba(239, 68, 68, 0.05)'
         }}>
           Sign Out
         </button>
