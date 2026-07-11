@@ -151,6 +151,9 @@
 
 /* Base layer styles */
 @layer base {
+  html {
+    font-size: 85%; /* Reduce all rem-based sizes (text, padding, heights) by 15% */
+  }
   * {
     @apply border-border outline-ring/50;
   }

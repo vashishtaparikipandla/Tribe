@@ -155,11 +155,11 @@ function BottomNav({ activeTab, onTabChange, onAdd }: {
       <button
         onClick={onAdd}
         style={{
-          width: '56px',
-          height: '56px',
+          width: '48px',
+          height: '48px',
           background: 'linear-gradient(135deg, #6b21a8, #4c1d95)', // Dark purple gradient
           color: '#ffffff',
-          borderRadius: '28px',
+          borderRadius: '24px',
           border: 'none',
           cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
