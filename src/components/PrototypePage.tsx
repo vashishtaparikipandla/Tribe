@@ -66,10 +66,12 @@ export function PrototypePage() {
   const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport'].includes(screen);
 
   return (
-    <div className="prototype-container">
-      {/* Device Shell */}
-      <div className="animate-slide-up-fade device-shell">
-        {/* Status Bar */}
+    <div className="min-h-screen w-full bg-slate-200 flex items-center justify-center p-4 sm:p-8 font-sans animate-fade-in">
+      {/* Device Frame */}
+      <div className="w-full max-w-[400px] h-[850px] max-h-[95vh] bg-slate-900 rounded-[3rem] shadow-2xl p-2 relative">
+        {/* App Container */}
+        <div className="w-full h-full bg-white rounded-[2.5rem] overflow-y-auto relative hide-scrollbar flex flex-col">
+          {/* Status Bar */}
           <div
             style={{
               height: '44px',
@@ -124,6 +126,7 @@ export function PrototypePage() {
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

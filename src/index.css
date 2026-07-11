@@ -273,43 +273,14 @@
   }
 }
 
-/* Responsive Device Shell */
-.prototype-container {
-  min-height: 100vh;
-  background: #f8fafc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.device-shell {
-  width: 100vw;
-  height: 100vh;
-  transform: none;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  background: #ffffff;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  flex-shrink: 0;
-}
-
-@media (min-width: 600px) {
-  .prototype-container {
-    padding: 24px;
+/* Hide scrollbar utility */
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .device-shell {
-    width: 412px;
-    height: 860px;
-    transform: scale(0.68);
-    transform-origin: center center;
-    border-radius: 44px;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-    border: 12px solid #000000;
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
