@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
-import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight } from 'lucide-react';
+import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight, Gift, History, Plus } from 'lucide-react';
+
+const topContacts = [
+  { id: 1, name: 'Priya', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
+  { id: 2, name: 'Rahul', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
+  { id: 3, name: 'Neha', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
+  { id: 4, name: 'Arjun', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
+];
 
 const categories = [
   { label: 'Doctors', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop' },
@@ -100,6 +107,32 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
         </div>
       </div>
 
+      {/* Favorites Strip (8.1) */}
+      <div style={{ padding: '24px 0 0' }} className="animate-slide-up-fade delay-150">
+        <div style={{ padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '16px' }}>
+          <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0, letterSpacing: '-0.5px' }}>
+            Your Tribe
+          </h3>
+          <span style={{ fontSize: '13px', color: '#6b21a8', fontWeight: 700 }}>24 Contacts</span>
+        </div>
+        <div style={{ display: 'flex', gap: '16px', padding: '0 20px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '8px' }}>
+          {topContacts.map(contact => (
+            <div key={contact.id} onClick={() => onNavigate('tribe-member-profile')} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+              <div style={{ width: '64px', height: '64px', borderRadius: '50%', padding: '3px', background: 'linear-gradient(135deg, #7e22ce, #3b82f6)' }}>
+                <img src={contact.image} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover', border: '2px solid #ffffff' }} />
+              </div>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>{contact.name}</span>
+            </div>
+          ))}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', border: '2px dashed #cbd5e1' }}>
+              <Plus size={24} />
+            </div>
+            <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748b' }}>Invite</span>
+          </div>
+        </div>
+      </div>
+
       <div style={{ padding: '24px 20px 0' }} className="animate-slide-up-fade delay-150">
         <div style={{
           background: 'linear-gradient(135deg, #1e293b, #0f172a)',
@@ -163,6 +196,37 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
             </div>
             <div style={{ fontSize: '13px', fontWeight: 700, color: '#475569', textAlign: 'center' }}>See all categories</div>
           </button>
+        </div>
+      </div>
+
+      <div style={{ padding: '0 20px 24px', display: 'flex', gap: '12px' }} className="animate-slide-up-fade delay-200">
+        {/* Offers & Rewards Card */}
+        <div 
+          onClick={() => onNavigate('offers-rewards')}
+          style={{ flex: 1, background: '#ffffff', border: '1px solid #f1f5f9', borderRadius: '20px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
+        >
+          <div style={{ background: '#faf5ff', color: '#7e22ce', width: '40px', height: '40px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+            <Gift size={20} />
+            <div style={{ position: 'absolute', top: -4, right: -4, background: '#ef4444', color: '#ffffff', fontSize: '10px', fontWeight: 800, width: '18px', height: '18px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #ffffff' }}>2</div>
+          </div>
+          <div>
+            <div style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a' }}>Offers & Rewards</div>
+            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>120 pts</div>
+          </div>
+        </div>
+
+        {/* Service History Card */}
+        <div 
+          onClick={() => onNavigate('service-history')}
+          style={{ flex: 1, background: '#ffffff', border: '1px solid #f1f5f9', borderRadius: '20px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
+        >
+          <div style={{ background: '#f8fafc', color: '#475569', width: '40px', height: '40px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <History size={20} />
+          </div>
+          <div>
+            <div style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a' }}>Service History</div>
+            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>Past bookings</div>
+          </div>
         </div>
       </div>
 

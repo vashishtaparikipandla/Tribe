@@ -16,26 +16,12 @@ import MyRecommendationsScreen from '@/sections/prototype/MyRecommendations';
 import TrustStatsScreen from '@/sections/prototype/TrustStats';
 import HouseholdLinkingScreen from '@/sections/prototype/HouseholdLinking';
 import NotificationPreferencesScreen from '@/sections/prototype/NotificationPreferences';
+import TribeMemberProfileScreen from '@/sections/prototype/TribeMemberProfile';
+import OffersAndRewardsScreen from '@/sections/prototype/OffersAndRewards';
+import ServiceHistoryScreen from '@/sections/prototype/ServiceHistory';
 import { Home, Search as SearchIcon, Users, Plus, User } from 'lucide-react'; // Removed Tag for Deals
 
-export type Screen =
-  | 'auth'
-  | 'onboarding'
-  | 'home'
-  | 'search'
-  | 'provider-profile'
-  | 'add-recommendation'
-  | 'my-tribe'
-  | 'user-profile'
-  | 'provider-passport'
-  | 'consensus-request'
-  | 'saved-providers'
-  | 'category-directory'
-  | 'edit-profile'
-  | 'my-recommendations'
-  | 'trust-stats'
-  | 'household-linking'
-  | 'notification-preferences';
+export type Screen = 'auth' | 'onboarding' | 'home' | 'search' | 'my-tribe' | 'provider-profile' | 'add-recommendation' | 'consensus-request' | 'provider-passport' | 'user-profile' | 'saved-providers' | 'category-directory' | 'edit-profile' | 'my-recommendations' | 'trust-stats' | 'household-linking' | 'notification-preferences' | 'tribe-member-profile' | 'offers-rewards' | 'service-history';
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('auth');
@@ -87,6 +73,12 @@ export function PrototypePage() {
         return <HouseholdLinkingScreen onNavigate={setScreen} />;
       case 'notification-preferences':
         return <NotificationPreferencesScreen onNavigate={setScreen} />;
+      case 'tribe-member-profile':
+        return <TribeMemberProfileScreen onNavigate={setScreen} />;
+      case 'offers-rewards':
+        return <OffersAndRewardsScreen onNavigate={setScreen} />;
+      case 'service-history':
+        return <ServiceHistoryScreen onNavigate={setScreen} />;
     }
   };
 
