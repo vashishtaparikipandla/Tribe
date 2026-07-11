@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import OnboardingFlow from '@/sections/prototype/Onboarding';
+import AuthScreen from '@/sections/prototype/Auth';
 import HomeScreen from '@/sections/prototype/Home';
 import ProviderProfileScreen from '@/sections/prototype/ProviderProfile';
 import AddRecommendationScreen from '@/sections/prototype/AddRecommendation';
@@ -9,6 +10,7 @@ import UserProfileScreen from '@/sections/prototype/UserProfile';
 import { Home, Search as SearchIcon, Users, Plus } from 'lucide-react'; // Removed Tag for Deals
 
 export type Screen =
+  | 'auth'
   | 'onboarding'
   | 'home'
   | 'search'
@@ -18,10 +20,10 @@ export type Screen =
   | 'user-profile';
 
 export function PrototypePage() {
-  const [screen, setScreen] = useState<Screen>('onboarding');
+  const [screen, setScreen] = useState<Screen>('auth');
   const [activeTab, setActiveTab] = useState<'home' | 'search' | 'tribe'>('home');
 
-  const showShell = screen !== 'onboarding';
+  const showShell = screen !== 'auth' && screen !== 'onboarding';
 
   const handleTabChange = (tab: 'home' | 'search' | 'tribe') => {
     setActiveTab(tab);
@@ -32,6 +34,8 @@ export function PrototypePage() {
 
   const renderScreen = () => {
     switch (screen) {
+      case 'auth':
+        return <AuthScreen onNavigate={setScreen} />;
       case 'onboarding':
         return <OnboardingFlow onDone={() => { setScreen('home'); setActiveTab('home'); }} />;
       case 'home':
@@ -50,7 +54,7 @@ export function PrototypePage() {
   };
 
   // Determine if current screen has a dark header (so status bar text should be white)
-  const hasDarkHeader = ['home', 'search', 'provider-profile', 'my-tribe', 'user-profile'].includes(screen);
+  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile'].includes(screen);
 
   return (
     <div
@@ -70,7 +74,7 @@ export function PrototypePage() {
         style={{
           width: '412px',
           height: '860px',
-          transform: 'scale(0.85)',
+          transform: 'scale(0.68)',
           transformOrigin: 'center center',
           position: 'relative',
           flexShrink: 0,
