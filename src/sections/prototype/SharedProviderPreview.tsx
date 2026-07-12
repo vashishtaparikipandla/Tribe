@@ -1,6 +1,5 @@
 import type { Screen } from '@/components/PrototypePage';
 import { ArrowLeft, ShieldCheck, MapPin, Download, Check } from 'lucide-react';
-import { TribeLogo } from '@/components/TribeLogo';
 
 export default function SharedProviderPreviewScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
   return (
@@ -8,8 +7,11 @@ export default function SharedProviderPreviewScreen({ onNavigate }: { onNavigate
       
       {/* Mobile Web Simulation Header */}
       <div style={{ background: '#ffffff', padding: '16px 24px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <TribeLogo variant="wordmark" size={32} background="light" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6b21a8', fontWeight: 800, fontSize: '18px', letterSpacing: '-0.5px' }}>
+          <div style={{ width: '28px', height: '28px', background: '#6b21a8', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#ffffff', fontSize: '14px' }}>T</span>
+          </div>
+          Tribe
         </div>
         <button onClick={() => onNavigate('onboarding')} style={{ background: '#f1f5f9', color: '#0f172a', border: 'none', padding: '8px 16px', borderRadius: '20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
           Open App

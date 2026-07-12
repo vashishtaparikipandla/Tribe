@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Target, Search, Users, Phone } from 'lucide-react';
-import { TribeLogo } from '@/components/TribeLogo';
 
 const slides = [
   {
@@ -122,10 +121,6 @@ export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
         borderBottomLeftRadius: '32px',
         borderBottomRightRadius: '32px',
       }}>
-        {/* Tribe Logo */}
-        <div style={{ position: 'absolute', top: '64px', left: '32px', zIndex: 10 }}>
-          <TribeLogo variant="wordmark" size={40} background="dark" />
-        </div>
         {/* Abstract shapes */}
         <div style={{
           position: 'absolute', width: '300px', height: '300px',

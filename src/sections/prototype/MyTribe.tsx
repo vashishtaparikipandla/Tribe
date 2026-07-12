@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { UserPlus, ShieldAlert, Users, Wrench, Stethoscope, GraduationCap, ChevronRight, ChevronDown, ArrowLeft, Calendar, Settings, List, Orbit, MapPin, Info, MessageCircle, Phone } from 'lucide-react';
-import { TribeLogo } from '@/components/TribeLogo';
 import TribeMapView from './TribeMapView';
 import ConstellationGraph from './ConstellationGraph';
 
@@ -272,9 +271,6 @@ export default function MyTribeScreen({ onNavigate }: { onNavigate?: (screen: st
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }} className="animate-slide-up-fade">
           <div>
-            <div style={{ marginBottom: '12px' }}>
-              <TribeLogo variant="mark" size="navIcon" background="dark" />
-            </div>
             <h1 style={{ fontSize: '32px', fontWeight: 700, margin: '0 0 8px', letterSpacing: '-0.5px' }}>
               My Tribe
             </h1>

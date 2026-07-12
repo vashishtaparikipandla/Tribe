@@ -100,7 +100,7 @@ export default function PrivacyDataScreen({ onNavigate }: { onNavigate: (s: Scre
         </div>
 
         <div style={{ background: '#ffffff', borderRadius: '24px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-          <button onClick={() => onNavigate('legal-document')} style={{
+          <button onClick={() => onNavigate('legal')} style={{
             width: '100%', padding: '20px', background: 'none', border: 'none', borderBottom: '1px solid #f1f5f9',
             display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer', textAlign: 'left'
           }}>
@@ -112,7 +112,7 @@ export default function PrivacyDataScreen({ onNavigate }: { onNavigate: (s: Scre
             </div>
             <ChevronRight size={20} color="#94a3b8" />
           </button>
-          <button onClick={() => onNavigate('legal-document')} style={{
+          <button onClick={() => onNavigate('legal')} style={{
             width: '100%', padding: '20px', background: 'none', border: 'none',
             display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer', textAlign: 'left'
           }}>

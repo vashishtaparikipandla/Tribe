@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Screen } from '@/components/PrototypePage';
 import { User, MapPin, Camera, ShieldCheck, Lock, ChevronDown } from 'lucide-react';
-import { TribeLogo } from '@/components/TribeLogo';
 
 export type AuthStep = 'splash' | 'phone' | 'otp' | 'profile' | 'contact_permission' | 'hashing_contacts' | 'location_permission';
 
@@ -75,10 +74,13 @@ export default function AuthScreen({ onNavigate }: { onNavigate: (s: Screen) => 
 
   if (step === 'splash') {
     return (
-      <div style={{ height: '100%', background: '#2E0A52', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-        <div className="animate-slide-up-fade">
-          <TribeLogo variant="mark" size="splash" background="dark" />
+      <div style={{ height: '100%', background: 'linear-gradient(135deg, #4c1d95, #3b0764)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <div style={{ width: '80px', height: '80px', background: '#ffffff', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', boxShadow: '0 12px 32px rgba(0,0,0,0.3)' }}>
+          <h1 style={{ color: '#4c1d95', fontSize: '48px', fontWeight: 900, margin: 0, lineHeight: 1 }}>T</h1>
         </div>
+        <h1 className="animate-slide-up-fade" style={{ color: '#ffffff', fontSize: '36px', fontWeight: 800, letterSpacing: '-1px' }}>
+          Tribe
+        </h1>
       </div>
     );
   }
@@ -94,9 +96,7 @@ export default function AuthScreen({ onNavigate }: { onNavigate: (s: Screen) => 
           display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden'
         }}>
           <div style={{ position: 'absolute', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(192,132,252,0.15) 0%, rgba(255,255,255,0) 70%)', top: '-20px', right: '-20px', borderRadius: '50%' }} />
-          <div className="animate-fade-in">
-            <TribeLogo variant="wordmark" size={50} background="dark" />
-          </div>
+          <h1 className="animate-fade-in" style={{ color: '#ffffff', fontSize: '32px', fontWeight: 800 }}>Tribe</h1>
         </div>
       )}
 

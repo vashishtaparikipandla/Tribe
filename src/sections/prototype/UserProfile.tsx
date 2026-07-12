@@ -1,6 +1,5 @@
 import type { Screen } from '@/components/PrototypePage';
 import { Pencil, Shield, Bell, HelpCircle, ChevronRight, Bookmark, MessageCircle, Star, ShieldCheck, Users, UsersRound, Store, ShieldQuestion, UserCog, HeartHandshake } from 'lucide-react';
-import { TribeLogo } from '@/components/TribeLogo';
 
 export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Screen) => void }) {
   const isProvider = true; // Simulating a user who also has a claimed provider profile
@@ -20,12 +19,8 @@ export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Scre
         boxShadow: '0 4px 20px rgba(76, 29, 149, 0.15)'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }} className="animate-slide-up-fade">
-          <div>
-            <div style={{ marginBottom: '12px' }}>
-              <TribeLogo variant="mark" size="navIcon" background="dark" />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <img 
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <img 
               src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
               alt="Vashishta"
               style={{ width: '64px', height: '64px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.2)' }}
@@ -37,7 +32,6 @@ export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Scre
               <p style={{ fontSize: '13px', margin: 0, color: '#e9d5ff', fontWeight: 500 }}>
                 Hyderabad • Member since Oct 2024
               </p>
-              </div>
             </div>
           </div>
           <button onClick={() => onNavigate('edit-profile')} style={{
