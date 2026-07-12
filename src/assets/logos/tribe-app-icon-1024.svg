@@ -1,0 +1,8 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tribe app icon">
+  <rect width="1024" height="1024" fill="#2E0A52"/>
+  <g transform="translate(162,162) scale(5.933)">
+    <circle cx="46" cy="46" r="30" fill="#EEEDFE" fill-opacity="0.94"/>
+    <circle cx="74" cy="46" r="30" fill="#CECBF6" fill-opacity="0.94"/>
+    <circle cx="60" cy="72" r="30" fill="#AFA9EC" fill-opacity="0.94"/>
+  </g>
+</svg>

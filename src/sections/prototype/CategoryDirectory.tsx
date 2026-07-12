@@ -130,7 +130,7 @@ export default function CategoryDirectoryScreen({ onNavigate }: { onNavigate: (s
                     </div>
                   </div>
                   <div style={{ fontSize: '13px', color: '#64748b', marginBottom: '12px' }}>{vendor.category}</div>
-                  <div style={{ fontSize: '11px', color: '#4338ca', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', background: '#eef2ff', padding: '4px 8px', borderRadius: '12px', display: 'inline-flex' }}>
+                  <div style={{ fontSize: '11px', color: '#4338ca', fontWeight: 600, alignItems: 'center', gap: '4px', background: '#eef2ff', padding: '4px 8px', borderRadius: '12px', display: 'inline-flex' }}>
                     <Check size={12} /> Society Verified
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default function CategoryDirectoryScreen({ onNavigate }: { onNavigate: (s
         {filteredGroups.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '40px 20px', color: '#64748b' }}>
             <p style={{ fontSize: '16px', fontWeight: 500 }}>No categories found matching "{searchQuery}".</p>
-            <button onClick={() => onNavigate('consensus')} style={{ marginTop: '16px', background: '#f5f3ff', color: '#6b21a8', border: 'none', borderRadius: '12px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer' }}>
+            <button onClick={() => onNavigate('consensus-request')} style={{ marginTop: '16px', background: '#f5f3ff', color: '#6b21a8', border: 'none', borderRadius: '12px', padding: '12px 24px', fontSize: '14px', fontWeight: 700, cursor: 'pointer' }}>
               Ask your tribe instead
             </button>
           </div>

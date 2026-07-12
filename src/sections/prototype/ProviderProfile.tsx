@@ -193,7 +193,7 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
                 <div style={{ fontSize: '14px', color: '#64748b', fontWeight: 500, flex: 1 }}>
                   Only a few reviews in your tribe.
                 </div>
-                <button onClick={() => onNavigate('consensus')} style={{
+                <button onClick={() => onNavigate('consensus-request')} style={{
                   background: '#ffffff', color: '#6b21a8', border: '1px solid #e9d5ff', borderRadius: '12px', padding: '8px 12px',
                   fontSize: '13px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '6px', cursor: 'pointer'
                 }}>

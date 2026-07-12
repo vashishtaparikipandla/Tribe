@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Screen } from '@/components/PrototypePage';
 import { Bookmark, Search as SearchIcon, Check, ShieldCheck, Bell, ChevronRight, Stethoscope, Users, MessageCircle, ArrowRight, Gift, History, Plus, MapPin } from 'lucide-react';
+import { TribeLogo } from '@/components/TribeLogo';
 
 const topContacts = [
   { id: 1, name: 'Priya', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80' },
@@ -70,6 +71,9 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
         <div className="animate-slide-up-fade delay-100">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
+              <div style={{ marginBottom: '12px' }}>
+                <TribeLogo variant="mark" size="navIcon" background="dark" />
+              </div>
               <p style={{ color: '#e9d5ff', fontSize: '15px', margin: '0 0 4px', fontWeight: 500 }}>Good evening,</p>
               <h2 style={{ color: '#ffffff', fontSize: '32px', fontWeight: 700, margin: '0 0 24px', letterSpacing: '-0.5px' }}>
                 Vashishta.
@@ -98,7 +102,7 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
             <span style={{ color: '#94a3b8', fontSize: '16px', fontWeight: 500 }}>Search plumber, doctor...</span>
           </div>
 
-          <button onClick={() => onNavigate('consensus')} style={{
+          <button onClick={() => onNavigate('consensus-request')} style={{
             background: 'rgba(255,255,255,0.15)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)',
             borderRadius: '12px', padding: '10px 16px', fontSize: '14px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', backdropFilter: 'blur(8px)'
           }}>

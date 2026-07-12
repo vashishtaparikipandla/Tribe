@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 interface Node extends d3.SimulationNodeDatum {
@@ -94,8 +94,8 @@ export default function ConstellationGraph({
     // Force Simulation
     const simulation = d3.forceSimulation<Node>(nodesData)
       .force('link', d3.forceLink<Node, Link>(linksData).id(d => d.id).distance(100).strength(0.5))
-      .force('charge', d3.forceManyBody().strength(d => d.type === 'contact' ? -400 : -200))
-      .force('collide', d3.forceCollide().radius(d => d.type === 'contact' ? (32 + (d.score/100)*24)/2 + 10 : 30))
+      .force('charge', d3.forceManyBody<Node>().strength(d => d.type === 'contact' ? -400 : -200))
+      .force('collide', d3.forceCollide<Node>().radius(d => d.type === 'contact' ? (32 + (d.score/100)*24)/2 + 10 : 30))
       .force('center', d3.forceCenter(0, 0).strength(0.05));
 
     // Draw Links
@@ -117,7 +117,7 @@ export default function ConstellationGraph({
         .on('drag', dragged)
         .on('end', dragended)
       )
-      .on('click', (event, d) => {
+      .on('click', (_event, d) => {
         if (d.type === 'contact') {
           setActiveContactId(prev => prev === d.id ? null : d.id as number);
         } else if (d.type === 'provider' && onNodeClick) {
@@ -142,7 +142,6 @@ export default function ConstellationGraph({
         // We use patterns for images
         const patternId = `img-${d.id}`;
         if (defs.select(`#${patternId}`).empty()) {
-          const r = (32 + (d.score/100)*24) / 2;
           defs.append('pattern')
             .attr('id', patternId)
             .attr('width', 1).attr('height', 1)
