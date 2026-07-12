@@ -149,9 +149,10 @@ export default function UserProfileScreen({ onNavigate }: { onNavigate: (s: Scre
             {[
               { icon: UserCog, label: 'Account & Security', route: 'edit-profile' as Screen },
               { icon: Bell, label: 'Notifications', route: 'notification-preferences' as Screen },
-              { icon: ShieldQuestion, label: 'Privacy & Data', route: 'edit-profile' as Screen },
+              { icon: Bookmark, label: 'My Bookings', route: 'my-bookings' as Screen },
+              { icon: ShieldQuestion, label: 'Privacy & Data', route: 'privacy-data' as Screen },
               { icon: UsersRound, label: 'Household', route: 'household-linking' as Screen },
-              { icon: HelpCircle, label: 'Help & Support', route: 'user-profile' as Screen },
+              { icon: HelpCircle, label: 'Help & Support', route: 'help-support' as Screen },
             ].map((item, i, arr) => (
               <div key={i} onClick={() => onNavigate(item.route)} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',

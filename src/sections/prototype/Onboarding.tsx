@@ -35,6 +35,7 @@ const slides = [
 export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showPersonalization, setShowPersonalization] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   const next = () => {
     if (currentSlide < slides.length - 1) {
@@ -82,10 +83,17 @@ export default function OnboardingFlow({ onDone }: { onDone: () => void }) {
           </div>
         </div>
 
-        <button onClick={next} style={{
-          width: '100%', padding: '18px', background: 'linear-gradient(135deg, #6b21a8, #4c1d95)', color: '#ffffff',
-          border: 'none', borderRadius: '32px', fontSize: '16px', fontWeight: 700, cursor: 'pointer',
-          boxShadow: '0 8px 16px rgba(107, 33, 168, 0.25)', transition: 'transform 0.1s',
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '24px' }}>
+          <input type="checkbox" checked={accepted} onChange={e => setAccepted(e.target.checked)} style={{ width: '20px', height: '20px', accentColor: '#7e22ce', marginTop: '2px' }} />
+          <p style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: 1.5 }}>
+            I agree to the <span style={{ color: '#7e22ce', fontWeight: 600, cursor: 'pointer' }}>Terms & Conditions</span> and <span style={{ color: '#7e22ce', fontWeight: 600, cursor: 'pointer' }}>Privacy Policy</span>. Account creation requires accepting these terms.
+          </p>
+        </div>
+
+        <button disabled={!accepted} onClick={next} style={{
+          width: '100%', padding: '18px', background: accepted ? 'linear-gradient(135deg, #6b21a8, #4c1d95)' : '#cbd5e1', color: '#ffffff',
+          border: 'none', borderRadius: '32px', fontSize: '16px', fontWeight: 700, cursor: accepted ? 'pointer' : 'not-allowed',
+          boxShadow: accepted ? '0 8px 16px rgba(107, 33, 168, 0.25)' : 'none', transition: 'transform 0.1s',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
         }}>
           <Users size={20} /> Sync contacts to see their providers

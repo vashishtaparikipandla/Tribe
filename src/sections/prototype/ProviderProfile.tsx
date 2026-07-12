@@ -241,6 +241,13 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
             </div>
           </div>
 
+          {/* Report Provider */}
+          <div style={{ marginTop: '48px', textAlign: 'center' }}>
+            <button onClick={() => onNavigate('report-ticket')} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '14px', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>
+              Report this provider
+            </button>
+          </div>
+
         </div>
       </div>
 
@@ -251,7 +258,7 @@ export default function ProviderProfileScreen({ onNavigate }: { onNavigate: (s: 
         borderTop: '1px solid #f1f5f9', boxShadow: '0 -4px 20px rgba(0,0,0,0.05)',
         display: 'flex', gap: '12px', zIndex: 10
       }}>
-        <button style={{
+        <button onClick={() => onNavigate('booking-flow')} style={{
           flex: 1, padding: '16px', background: '#0f172a', color: '#ffffff',
           border: 'none', borderRadius: '16px', fontSize: '15px', fontWeight: 700, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'

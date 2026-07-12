@@ -21,9 +21,16 @@ import OffersAndRewardsScreen from '@/sections/prototype/OffersAndRewards';
 import ServiceHistoryScreen from '@/sections/prototype/ServiceHistory';
 import SharedProviderPreviewScreen from '@/sections/prototype/SharedProviderPreview';
 import SocietyAdminScreen from '@/sections/prototype/SocietyAdmin';
+import MyConsensusRequestsScreen from '@/sections/prototype/MyConsensusRequests';
+import BookingFlowScreen from '@/sections/prototype/BookingFlow';
+import MyBookingsScreen from '@/sections/prototype/MyBookings';
+import LegalDocumentScreen from '@/sections/prototype/LegalDocument';
+import PrivacyDataScreen from '@/sections/prototype/PrivacyData';
+import HelpSupportScreen from '@/sections/prototype/HelpSupport';
+import ReportTicketScreen from '@/sections/prototype/ReportTicket';
 import { Home, Search as SearchIcon, Users, Plus, User } from 'lucide-react'; // Removed Tag for Deals
 
-export type Screen = 'auth' | 'onboarding' | 'home' | 'search' | 'my-tribe' | 'provider-profile' | 'add-recommendation' | 'consensus-request' | 'provider-passport' | 'user-profile' | 'saved-providers' | 'category-directory' | 'edit-profile' | 'my-recommendations' | 'trust-stats' | 'household-linking' | 'notification-preferences' | 'tribe-member-profile' | 'offers-rewards' | 'service-history' | 'shared-provider-preview' | 'society-admin';
+export type Screen = 'auth' | 'onboarding' | 'home' | 'search' | 'my-tribe' | 'provider-profile' | 'add-recommendation' | 'consensus-request' | 'provider-passport' | 'user-profile' | 'saved-providers' | 'category-directory' | 'edit-profile' | 'my-recommendations' | 'trust-stats' | 'household-linking' | 'notification-preferences' | 'tribe-member-profile' | 'offers-rewards' | 'service-history' | 'shared-provider-preview' | 'society-admin' | 'my-consensus-requests' | 'booking-flow' | 'my-bookings' | 'legal-document' | 'privacy-data' | 'help-support' | 'report-ticket';
 
 export function PrototypePage() {
   const [screen, setScreen] = useState<Screen>('auth');
@@ -85,11 +92,25 @@ export function PrototypePage() {
         return <SharedProviderPreviewScreen onNavigate={setScreen} />;
       case 'society-admin':
         return <SocietyAdminScreen onNavigate={setScreen} />;
+      case 'my-consensus-requests':
+        return <MyConsensusRequestsScreen onNavigate={setScreen} />;
+      case 'booking-flow':
+        return <BookingFlowScreen onNavigate={setScreen} />;
+      case 'my-bookings':
+        return <MyBookingsScreen onNavigate={setScreen} />;
+      case 'legal-document':
+        return <LegalDocumentScreen onNavigate={setScreen} />;
+      case 'privacy-data':
+        return <PrivacyDataScreen onNavigate={setScreen} />;
+      case 'help-support':
+        return <HelpSupportScreen onNavigate={setScreen} />;
+      case 'report-ticket':
+        return <ReportTicketScreen onNavigate={setScreen} />;
     }
   };
 
   // Determine if current screen has a dark header (so status bar text should be white)
-  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport', 'saved-providers', 'category-directory', 'trust-stats', 'household-linking', 'society-admin'].includes(screen);
+  const hasDarkHeader = ['auth', 'home', 'search', 'provider-profile', 'my-tribe', 'user-profile', 'provider-passport', 'saved-providers', 'category-directory', 'trust-stats', 'household-linking', 'society-admin', 'my-bookings', 'privacy-data', 'help-support', 'my-consensus-requests'].includes(screen);
 
   return (
     <div className="prototype-container">
@@ -144,7 +165,7 @@ export function PrototypePage() {
             </div>
 
             {/* Bottom Nav */}
-            {showShell && !['provider-profile', 'add-recommendation', 'provider-passport', 'consensus-request', 'shared-provider-preview', 'society-admin'].includes(screen) && (
+            {showShell && !['provider-profile', 'add-recommendation', 'provider-passport', 'consensus-request', 'shared-provider-preview', 'society-admin', 'booking-flow', 'legal-document', 'report-ticket'].includes(screen) && (
               <BottomNav activeTab={activeTab} onTabChange={handleTabChange} onAdd={() => setScreen('add-recommendation')} />
             )}
           </div>
