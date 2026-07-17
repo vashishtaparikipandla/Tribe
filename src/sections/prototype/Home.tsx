@@ -98,7 +98,7 @@ export default function HomeScreen({ onNavigate }: { onNavigate: (s: Screen) => 
             <span style={{ color: '#94a3b8', fontSize: '16px', fontWeight: 500 }}>Search plumber, doctor...</span>
           </div>
 
-          <button onClick={() => onNavigate('consensus')} style={{
+          <button onClick={() => onNavigate('consensus-request')} style={{
             background: 'rgba(255,255,255,0.15)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)',
             borderRadius: '12px', padding: '10px 16px', fontSize: '14px', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', backdropFilter: 'blur(8px)'
           }}>
